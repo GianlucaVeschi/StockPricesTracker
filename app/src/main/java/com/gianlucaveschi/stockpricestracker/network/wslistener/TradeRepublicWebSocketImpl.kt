@@ -1,10 +1,12 @@
 package com.gianlucaveschi.stockpricestracker.network.wslistener
 
 import com.gianlucaveschi.stockpricestracker.domain.getTickersList
+import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.*
 import okio.ByteString
 import timber.log.Timber
 
+@ExperimentalSerializationApi
 class TradeRepublicWebSocketImpl(
     private val client: OkHttpClient,
     private val openConnectionRequest: Request
@@ -16,11 +18,7 @@ class TradeRepublicWebSocketImpl(
     private var isConnected = false
     private val tickerList = getTickersList()
 
-//    private val tickerUpdatesFlow : Flow<TickerApiModel> = callbackFlow {
-//
-//    }
-
-    fun launchWebSocketConnection() {
+    fun initOldWebSocket() {
         webSocket = client.newWebSocket(openConnectionRequest, webSocketListener)
     }
 
