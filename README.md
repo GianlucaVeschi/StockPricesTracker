@@ -12,7 +12,7 @@ TradeRepublic Coding Challenge
 - ~~Create mock UseCases layer~~
 - ~~Inject UseCases in the VM~~
 
-- Create Repository layer
+- Create Dummy Repository layer
 - Inject Repository in the VM
   
 - Create Scarlet Service

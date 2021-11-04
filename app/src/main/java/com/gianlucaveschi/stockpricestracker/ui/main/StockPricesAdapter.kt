@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gianlucaveschi.stockpricestracker.databinding.ItemViewStockPriceBinding
-import com.gianlucaveschi.stockpricestracker.domain.model.StockPriceModel
+import com.gianlucaveschi.stockpricestracker.domain.model.Ticker
 
 class StockPricesAdapter(
-    private val data: List<StockPriceModel>
+    private val data: List<Ticker>
 ) : RecyclerView.Adapter<StockPricesAdapter.SPViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SPViewHolder {
@@ -26,9 +26,9 @@ class StockPricesAdapter(
 
     inner class SPViewHolder(private val binding: ItemViewStockPriceBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(stockPriceModel: StockPriceModel) {
+        fun bind(ticker: Ticker) {
             binding.apply {
-                stockModel = stockPriceModel
+                stockModel = ticker
                 executePendingBindings()
             }
         }

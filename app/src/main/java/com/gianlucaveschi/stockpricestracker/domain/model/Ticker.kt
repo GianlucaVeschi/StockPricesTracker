@@ -3,8 +3,8 @@ package com.gianlucaveschi.stockpricestracker.domain.model
 import com.gianlucaveschi.stockpricestracker.util.Utils
 import java.math.BigDecimal
 
-data class StockPriceModel(
-    val stock: StockModel,
+data class Ticker(
+    val stock: TickerInfo,
     val price: BigDecimal? = null
 ) {
     fun getFormattedPrice(): String {
@@ -13,7 +13,7 @@ data class StockPriceModel(
     }
 }
 
-data class StockModel(
+data class TickerInfo(
     val name: String,
     val isin: String
 )
