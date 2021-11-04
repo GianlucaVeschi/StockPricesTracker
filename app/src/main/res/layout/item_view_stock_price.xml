@@ -27,16 +27,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="isin" />
+        tools:text="name" />
 
     <TextView
         style="@style/style_16_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{stockModel.priceFormatted}"
+        android:text="@{stockModel.formattedPrice}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="price" />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

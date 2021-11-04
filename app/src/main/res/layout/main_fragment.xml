@@ -17,36 +17,41 @@
         android:background="@color/color_screen_bg"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnSubscribe"
-            app:backgroundTint="@color/green"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/subscribe"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnUnsubscribe"
-            app:backgroundTint="@color/green"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unsubscribe"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnSubscribe"
-            app:layout_constraintTop_toTopOf="@id/btnSubscribe" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvStockPrices"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            tools:listitem="@layout/item_view_stock_price"
+            android:layout_marginBottom="2dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toTopOf="@+id/btnSubscribe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_view_stock_price" />
+
+        <Button
+            android:id="@+id/btnSubscribe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="@string/subscribe"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/teal_200"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSubscribe" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnUnsubscribe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="@string/unsubscribe"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/teal_200"
+            app:layout_constraintBottom_toBottomOf="@id/btnSubscribe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnSubscribe"
+            app:layout_constraintTop_toBottomOf="@+id/rvStockPrices" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

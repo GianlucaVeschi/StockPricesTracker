@@ -7,13 +7,13 @@ data class StockPriceModel(
   val stock: StockModel,
   val price: BigDecimal? = null
 ) {
-  fun getPriceFormatted(): String {
+  fun getFormattedPrice(): String {
     return if (price == null) "--"
     else Utils.formatAmountWithCurrency(price)
   }
 }
 
 data class StockModel(
-  val isin: String,
-  val name: String
+  val name: String,
+  val isin: String
 )

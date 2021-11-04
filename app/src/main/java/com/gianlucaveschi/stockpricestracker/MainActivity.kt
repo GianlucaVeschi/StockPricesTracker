@@ -3,7 +3,10 @@ package com.gianlucaveschi.stockpricestracker
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.gianlucaveschi.stockpricestracker.ui.main.MainFragment
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
