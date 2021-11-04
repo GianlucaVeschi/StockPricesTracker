@@ -9,8 +9,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.serialization.ExperimentalSerializationApi
 import timber.log.Timber
 
+@ExperimentalSerializationApi
 class MainRepositoryImpl(
     private val service: TradeRepublicService,
     private val tradeRepublicWebSocketImpl : TradeRepublicWebSocketImpl
@@ -19,7 +21,7 @@ class MainRepositoryImpl(
 
     override fun initTickerObservations() {
         Timber.d("init observation")
-        tradeRepublicWebSocketImpl.initOldWebSocket()
+        tradeRepublicWebSocketImpl.initWebSocket()
     }
 
     //Not working yet

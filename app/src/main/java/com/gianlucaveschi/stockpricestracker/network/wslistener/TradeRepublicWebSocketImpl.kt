@@ -18,7 +18,7 @@ class TradeRepublicWebSocketImpl(
     private var isConnected = false
     private val tickerList = getTickersList()
 
-    fun initOldWebSocket() {
+    fun initWebSocket() {
         webSocket = client.newWebSocket(openConnectionRequest, webSocketListener)
     }
 

@@ -14,6 +14,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.*
 
 @ExperimentalSerializationApi
+@ExperimentalCoroutinesApi
 class NewTradeRepublicWebSocketImpl(
     private val client: OkHttpClient,
     private val openConnectionRequest: Request
@@ -22,7 +23,6 @@ class NewTradeRepublicWebSocketImpl(
     //Persistent bi-directional communication channel between a client (Android) and a BE service
     private lateinit var webSocket: WebSocket
 
-    @ExperimentalCoroutinesApi
     private val tickerUpdatesFlow : Flow<TickerApiModel> = callbackFlow {
         val json = Json { ignoreUnknownKeys = true }
         val webSocketListener = object : WebSocketListener() {
