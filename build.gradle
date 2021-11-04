@@ -8,6 +8,9 @@ buildscript {
         hilt_version = "2.39.1"
         timber_version = "4.7.1"
         lifecycle_version = "2.4.0"
+        okhttp_version = "3.14.9"
+        logging_interceptor_version = "4.9.1"
+        scarlet_version = "0.1.12"
     }
 
     repositories {
