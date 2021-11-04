@@ -19,7 +19,7 @@ class MainRepositoryImpl(
 
     override fun initTickerObservations() {
         Timber.d("init observation")
-        tradeRepublicWebSocketImpl.launchWebSocketConnection()
+        tradeRepublicWebSocketImpl.initOldWebSocket()
     }
 
     //Not working yet

@@ -10,7 +10,7 @@ import kotlinx.serialization.encoding.Encoder
 import java.math.BigDecimal
 
 @Serializable
-internal data class TickerApiModel(
+data class TickerApiModel(
     @SerialName("isin") val isin: String,
     @SerialName("price") @Serializable(with = BigDecimalSerializer::class) val price: BigDecimal
 )
