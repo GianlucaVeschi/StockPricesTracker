@@ -3,5 +3,5 @@ TradeRepublic Coding Challenge
 
 # ToDos
 
-- ~~Add databinding~~
+- ~~Add Data Binding~~
 - Add XML files to res folder

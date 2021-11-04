@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">StockPricesTracker</string>
+
+    <string name="subscribe">Subscribe all</string>
+    <string name="unsubscribe">Unsubscribe all</string>
 </resources>
