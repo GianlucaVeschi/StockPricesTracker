@@ -1,5 +1,6 @@
 package com.gianlucaveschi.stockpricestracker.di
 
+import com.gianlucaveschi.stockpricestracker.network.TradeRepublicService
 import com.gianlucaveschi.stockpricestracker.repo.MainRepository
 import com.gianlucaveschi.stockpricestracker.repo.MainRepositoryImpl
 import dagger.Module
@@ -14,5 +15,9 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideMainRepository() : MainRepository = MainRepositoryImpl()
+    fun provideMainRepository(
+        service : TradeRepublicService
+    ) : MainRepository = MainRepositoryImpl(
+        service
+    )
 }
