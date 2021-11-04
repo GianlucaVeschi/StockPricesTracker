@@ -4,9 +4,9 @@ import com.gianlucaveschi.stockpricestracker.domain.model.StockModel
 import com.gianlucaveschi.stockpricestracker.domain.model.StockPriceModel
 
 
-fun getHardcodedStockPriceModels() = getStockModels().map { StockPriceModel(it) }
+fun getStockPriceModels() = getHardcodedStockModels().map { StockPriceModel(it) }
 
-private fun getStockModels(): List<StockModel> = listOf(
+private fun getHardcodedStockModels(): List<StockModel> = listOf(
     StockModel("Microsoft Corp.", "US5949181045"),
     StockModel("Invesco Ltd.", "BMG491BT1088"),
     StockModel("Apple Inc.", "US0378331005"),

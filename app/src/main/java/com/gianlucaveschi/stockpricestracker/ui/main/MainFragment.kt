@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.gianlucaveschi.stockpricestracker.databinding.MainFragmentBinding
+import com.gianlucaveschi.stockpricestracker.util.Utils.setup
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -15,7 +16,7 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: MainFragmentBinding
     private val mainViewModel: MainViewModel by viewModels()
-    private val stockPricesAdapter by lazy { StockPricesAdapter(mainViewModel.stockModelData) }
+    private val stockPricesAdapter by lazy { StockPricesAdapter(mainViewModel.stockPricesList) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

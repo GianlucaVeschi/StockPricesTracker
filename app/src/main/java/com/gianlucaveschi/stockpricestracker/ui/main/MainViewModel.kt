@@ -2,23 +2,38 @@ package com.gianlucaveschi.stockpricestracker.ui.main
 
 import androidx.lifecycle.ViewModel
 import com.gianlucaveschi.stockpricestracker.domain.model.StockPriceModel
-import com.gianlucaveschi.stockpricestracker.domain.getHardcodedStockPriceModels
+import com.gianlucaveschi.stockpricestracker.domain.getStockPriceModels
+import com.gianlucaveschi.stockpricestracker.interactors.InitStockMarketObservationUseCase
+import com.gianlucaveschi.stockpricestracker.interactors.StartSubscriptionToStockMarketUseCase
+import com.gianlucaveschi.stockpricestracker.interactors.StopSubscriptionToStockMarketUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val initStockMarketObservationUseCase: InitStockMarketObservationUseCase,
+    private val startSubscriptionToStockMarketUseCase: StartSubscriptionToStockMarketUseCase,
+    private val stopSubscriptionToStockMarketUseCase: StopSubscriptionToStockMarketUseCase
+) : ViewModel() {
 
-    private val _stockModelData = mutableListOf<StockPriceModel>().apply { addAll(getHardcodedStockPriceModels()) }
-    val stockModelData: List<StockPriceModel> = _stockModelData
+    private val _stockPricesList = mutableListOf<StockPriceModel>().apply {
+        addAll(getStockPriceModels())
+    }
+    val stockPricesList: List<StockPriceModel> = _stockPricesList
 
     init {
-        Timber.d("init")
+        Timber.d("init observation")
+        initStockMarketObservationUseCase.run()
     }
 
     fun subscribeToStocks() {
-        Timber.d("viewModel.subscribeToStocks()")
+        Timber.d("start observation")
+        startSubscriptionToStockMarketUseCase.run()
     }
 
     fun unsubscribeFromStocks() {
-        Timber.d("viewModel.unsubscribeToStocks()")
+        Timber.d("stop observation")
+        stopSubscriptionToStockMarketUseCase.run()
     }
 }
