@@ -11,6 +11,7 @@ buildscript {
         okhttp_version = "3.14.9"
         logging_interceptor_version = "4.9.1"
         scarlet_version = "0.1.12"
+        coroutines_version = "1.5.1"
     }
 
     repositories {
@@ -22,6 +23,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
