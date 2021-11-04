@@ -1,6 +1,6 @@
 package com.gianlucaveschi.stockpricestracker.di
 
-import com.gianlucaveschi.stockpricestracker.network.wslistener.WebSocketImpl
+import com.gianlucaveschi.stockpricestracker.network.wslistener.TradeRepublicWebSocketImpl
 import com.gianlucaveschi.stockpricestracker.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -25,7 +25,7 @@ class WebSocketListenerModule {
     fun provideWebSocketListener(
         okHttpClient: OkHttpClient,
         openConnectionRequest: Request
-    ) = WebSocketImpl(
+    ) = TradeRepublicWebSocketImpl(
         okHttpClient,
         openConnectionRequest
     )

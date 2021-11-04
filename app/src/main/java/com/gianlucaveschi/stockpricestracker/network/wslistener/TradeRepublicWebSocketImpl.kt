@@ -5,7 +5,7 @@ import okhttp3.*
 import okio.ByteString
 import timber.log.Timber
 
-class WebSocketImpl(
+class TradeRepublicWebSocketImpl(
     private val client: OkHttpClient,
     private val openConnectionRequest: Request
 ) {
