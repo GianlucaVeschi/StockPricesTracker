@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.gianlucaveschi.stockpricestracker.databinding.MainFragmentBinding
-import com.gianlucaveschi.stockpricestracker.util.Utils.setup
+import com.gianlucaveschi.stockpricestracker.ui.util.setup
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
