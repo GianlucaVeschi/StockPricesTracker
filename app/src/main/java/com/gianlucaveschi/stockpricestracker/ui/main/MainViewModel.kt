@@ -2,7 +2,7 @@ package com.gianlucaveschi.stockpricestracker.ui.main
 
 import androidx.lifecycle.ViewModel
 import com.gianlucaveschi.stockpricestracker.domain.model.Ticker
-import com.gianlucaveschi.stockpricestracker.domain.getStockPriceModels
+import com.gianlucaveschi.stockpricestracker.domain.getTickersList
 import com.gianlucaveschi.stockpricestracker.interactors.InitStockMarketObservationUseCase
 import com.gianlucaveschi.stockpricestracker.interactors.StartSubscriptionToStockMarketUseCase
 import com.gianlucaveschi.stockpricestracker.interactors.StopSubscriptionToStockMarketUseCase
@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _stockPricesList = mutableListOf<Ticker>().apply {
-        addAll(getStockPriceModels())
+        addAll(getTickersList())
     }
     val stockPricesList: List<Ticker> = _stockPricesList
 

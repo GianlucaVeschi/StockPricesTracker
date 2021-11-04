@@ -1,4 +1,4 @@
-package com.gianlucaveschi.stockpricestracker.network
+package com.gianlucaveschi.stockpricestracker.network.scarlet
 
 import com.gianlucaveschi.stockpricestracker.domain.model.Ticker
 import com.tinder.scarlet.WebSocket

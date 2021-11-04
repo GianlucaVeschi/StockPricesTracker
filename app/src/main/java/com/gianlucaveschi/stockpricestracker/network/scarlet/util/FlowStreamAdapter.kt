@@ -1,4 +1,4 @@
-package com.gianlucaveschi.stockpricestracker.network.util
+package com.gianlucaveschi.stockpricestracker.network.scarlet.util
 
 import com.tinder.scarlet.Stream
 import com.tinder.scarlet.StreamAdapter

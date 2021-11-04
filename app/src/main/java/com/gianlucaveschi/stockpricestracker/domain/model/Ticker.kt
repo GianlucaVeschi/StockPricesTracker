@@ -6,7 +6,7 @@ import java.math.BigDecimal
 
 //@JsonClass(generateAdapter = true)
 data class Ticker(
-    val stock: TickerInfo,
+    val tickerInfo: TickerInfo,
     val price: BigDecimal? = null
 ) {
     fun getFormattedPrice(): String {

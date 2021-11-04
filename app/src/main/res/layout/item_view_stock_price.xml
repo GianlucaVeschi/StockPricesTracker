@@ -23,7 +23,7 @@
         style="@style/style_16_normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{stockModel.stock.name}"
+        android:text="@{stockModel.tickerInfo.name}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
