@@ -2,7 +2,7 @@ package com.gianlucaveschi.stockpricestracker.repo
 
 import com.gianlucaveschi.stockpricestracker.domain.model.TickerInfo
 import com.gianlucaveschi.stockpricestracker.network.scarlet.TradeRepublicService
-import com.gianlucaveschi.stockpricestracker.network.wslistener.TradeRepWebSocketListener
+import com.gianlucaveschi.stockpricestracker.network.wslistener.WebSocketImpl
 import com.tinder.scarlet.WebSocket
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,13 +13,13 @@ import timber.log.Timber
 
 class MainRepositoryImpl(
     private val service: TradeRepublicService,
-    private val webSocketListener : TradeRepWebSocketListener
+    private val webSocketImpl : WebSocketImpl
 ) : MainRepository {
 
 
     override fun initTickerObservations() {
         Timber.d("init observation")
-        webSocketListener.launchWebSocketConnection()
+        webSocketImpl.launchWebSocketConnection()
     }
 
     //Not working yet

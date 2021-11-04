@@ -1,13 +1,11 @@
 package com.gianlucaveschi.stockpricestracker.network.wslistener
 
-import android.telecom.ConnectionRequest
 import com.gianlucaveschi.stockpricestracker.domain.getTickersList
-import com.gianlucaveschi.stockpricestracker.util.Constants.TRADE_REPUBLIC_SOCKET_URL
 import okhttp3.*
 import okio.ByteString
 import timber.log.Timber
 
-class TradeRepWebSocketListener(
+class WebSocketImpl(
     private val client: OkHttpClient,
     private val openConnectionRequest: Request
 ) {
@@ -18,14 +16,17 @@ class TradeRepWebSocketListener(
     private var isConnected = false
     private val tickerList = getTickersList()
 
+//    private val tickerUpdatesFlow : Flow<TickerApiModel> = callbackFlow {
+//
+//    }
+
     fun launchWebSocketConnection() {
-        webSocket = client.newWebSocket(openConnectionRequest, webSocketListener);
+        webSocket = client.newWebSocket(openConnectionRequest, webSocketListener)
     }
 
     //Internal WebSocketListener
     private val webSocketListener: WebSocketListener = object : WebSocketListener() {
         override fun onOpen(webSocket: WebSocket, response: Response) {
-
             Timber.d("onOpen")
             isConnected = true
 
@@ -54,6 +55,10 @@ class TradeRepWebSocketListener(
 
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
             Timber.d("onClosed: $code REASON: $reason")
+        }
+
+        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+            Timber.d("onFailure $response")
         }
     }
 }
