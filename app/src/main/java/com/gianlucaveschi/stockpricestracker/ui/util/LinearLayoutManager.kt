@@ -1,4 +1,4 @@
-package com.gianlucaveschi.stockpricestracker.util
+package com.gianlucaveschi.stockpricestracker.ui.util
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager

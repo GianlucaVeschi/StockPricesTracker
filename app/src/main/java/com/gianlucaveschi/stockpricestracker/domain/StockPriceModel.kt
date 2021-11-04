@@ -4,16 +4,16 @@ import com.gianlucaveschi.stockpricestracker.util.Utils
 import java.math.BigDecimal
 
 data class StockPriceModel(
-  val stock: StockModel,
-  val price: BigDecimal? = null
+    val stock: StockModel,
+    val price: BigDecimal? = null
 ) {
-  fun getFormattedPrice(): String {
-    return if (price == null) "--"
-    else Utils.formatAmountWithCurrency(price)
-  }
+    fun getFormattedPrice(): String {
+        return if (price == null) "--"
+        else Utils.formatAmountWithCurrency(price)
+    }
 }
 
 data class StockModel(
-  val name: String,
-  val isin: String
+    val name: String,
+    val isin: String
 )

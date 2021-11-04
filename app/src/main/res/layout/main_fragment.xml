@@ -18,7 +18,7 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvStockPrices"
+            android:id="@+id/stockPricesRecView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="2dp"
@@ -38,7 +38,8 @@
             android:textColor="@color/black"
             app:backgroundTint="@color/teal_200"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{(v) -> viewModel.subscribeToStocks()}"/>
 
         <Button
             android:id="@+id/btnUnsubscribe"
@@ -51,7 +52,8 @@
             app:layout_constraintBottom_toBottomOf="@id/btnSubscribe"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnSubscribe"
-            app:layout_constraintTop_toBottomOf="@+id/rvStockPrices" />
+            app:layout_constraintTop_toBottomOf="@+id/stockPricesRecView"
+            android:onClick="@{(v) -> viewModel.unsubscribeFromStocks()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
