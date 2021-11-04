@@ -1,4 +1,4 @@
-package com.gianlucaveschi.stockpricestracker.domain
+package com.gianlucaveschi.stockpricestracker.domain.model
 
 import com.gianlucaveschi.stockpricestracker.util.Utils
 import java.math.BigDecimal
@@ -8,7 +8,7 @@ data class StockPriceModel(
     val price: BigDecimal? = null
 ) {
     fun getFormattedPrice(): String {
-        return if (price == null) "--"
+        return if (price == null) "..."
         else Utils.formatAmountWithCurrency(price)
     }
 }
