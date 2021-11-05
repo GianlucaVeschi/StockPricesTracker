@@ -4,6 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TicketUnsubscription(
+data class TickerUnsubscription(
   @SerialName("unsubscribe") val isin: String
 )
