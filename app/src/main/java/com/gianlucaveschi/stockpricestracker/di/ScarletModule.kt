@@ -1,6 +1,7 @@
 package com.gianlucaveschi.stockpricestracker.di
 
 import com.gianlucaveschi.stockpricestracker.StockPricesTrackerApplication
+import com.gianlucaveschi.stockpricestracker.network.scarlet.TradeRepublicService
 import com.gianlucaveschi.stockpricestracker.network.scarlet.util.FlowStreamAdapter
 import com.gianlucaveschi.stockpricestracker.util.Constants
 import com.squareup.moshi.Moshi
@@ -30,5 +31,12 @@ class ScarletModule {
             .addStreamAdapterFactory(FlowStreamAdapter.Factory())
             .lifecycle(AndroidLifecycle.ofApplicationForeground(application))
             .build()
+    }
+
+    @Provides
+    fun provideTradeRepublicService(
+        scarlet: Scarlet
+    ): TradeRepublicService {
+        return scarlet.create()
     }
 }

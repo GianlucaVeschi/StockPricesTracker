@@ -1,10 +1,5 @@
 package com.gianlucaveschi.stockpricestracker.util
 
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import com.gianlucaveschi.stockpricestracker.R
-import com.gianlucaveschi.stockpricestracker.ui.util.LinearLayoutManager
 import com.gianlucaveschi.stockpricestracker.util.Constants.CURRENCY_SYMBOL
 import java.math.BigDecimal
 import java.text.DecimalFormat

@@ -1,6 +1,7 @@
 package com.gianlucaveschi.stockpricestracker.repo
 
 import com.gianlucaveschi.stockpricestracker.domain.model.TickerInfo
+import com.gianlucaveschi.stockpricestracker.domain.model.TicketSubscription
 import com.gianlucaveschi.stockpricestracker.network.scarlet.TradeRepublicService
 import com.gianlucaveschi.stockpricestracker.network.wslistener.TradeRepublicWebSocketImpl
 import com.tinder.scarlet.WebSocket
@@ -32,6 +33,7 @@ class MainRepositoryImpl(
 
     private fun observeWebSocket() {
         val subscriptionIsin = "{\"subscribe\":\"<US0378331005>\"}"
+        val ticketSubscription = TicketSubscription("US0378331005")
         service.observeWebSocket()
             .flowOn(Dispatchers.IO)
             .onEach { event ->

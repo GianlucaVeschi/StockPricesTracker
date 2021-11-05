@@ -1,6 +1,6 @@
 package com.gianlucaveschi.stockpricestracker.network.scarlet
 
-import com.gianlucaveschi.stockpricestracker.domain.model.Ticker
+import com.gianlucaveschi.stockpricestracker.domain.model.TicketSubscription
 import com.tinder.scarlet.WebSocket
 import com.tinder.scarlet.ws.Receive
 import com.tinder.scarlet.ws.Send
@@ -12,7 +12,7 @@ interface TradeRepublicService {
     fun observeWebSocket(): Flow<WebSocket.Event>
 
     @Send
-    fun sendSubscribe(subscribe: String)
+    fun sendSubscribe(subscription: String)
 
     @Receive
     fun observeTicker(): Flow<String>

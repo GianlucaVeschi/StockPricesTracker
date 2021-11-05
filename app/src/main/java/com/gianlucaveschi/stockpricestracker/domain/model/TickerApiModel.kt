@@ -12,7 +12,9 @@ import java.math.BigDecimal
 @Serializable
 data class TickerApiModel(
     @SerialName("isin") val isin: String,
-    @SerialName("price") @Serializable(with = BigDecimalSerializer::class) val price: BigDecimal
+    @SerialName("price") @Serializable(with = BigDecimalSerializer::class) val price: BigDecimal,
+    @SerialName("bid") @Serializable(with = BigDecimalSerializer::class) val bid: BigDecimal,
+    @SerialName("ask") @Serializable(with = BigDecimalSerializer::class) val ask: BigDecimal
 )
 
 internal object BigDecimalSerializer : KSerializer<BigDecimal> {

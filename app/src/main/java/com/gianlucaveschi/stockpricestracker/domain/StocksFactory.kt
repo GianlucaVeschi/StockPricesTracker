@@ -1,10 +1,10 @@
 package com.gianlucaveschi.stockpricestracker.domain
 
 import com.gianlucaveschi.stockpricestracker.domain.model.TickerInfo
-import com.gianlucaveschi.stockpricestracker.domain.model.Ticker
+import com.gianlucaveschi.stockpricestracker.domain.model.TickerUiModel
 
 
-fun getTickersList() = getHardcodedTickerInfo().map { Ticker(it) }
+fun getTickersList() = getHardcodedTickerInfo().map { TickerUiModel(it) }
 
 private fun getHardcodedTickerInfo(): List<TickerInfo> = listOf(
     TickerInfo("Microsoft Corp.", "US5949181045"),

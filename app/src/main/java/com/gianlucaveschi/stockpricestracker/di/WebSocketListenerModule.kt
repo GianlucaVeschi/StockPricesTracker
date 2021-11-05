@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
@@ -21,6 +22,7 @@ class WebSocketListenerModule {
             .build()
     }
 
+    @ExperimentalSerializationApi
     @Provides
     fun provideWebSocketListener(
         okHttpClient: OkHttpClient,

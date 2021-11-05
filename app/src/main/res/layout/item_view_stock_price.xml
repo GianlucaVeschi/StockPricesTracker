@@ -7,7 +7,7 @@
 
     <variable
         name="stockModel"
-        type="com.gianlucaveschi.stockpricestracker.domain.model.Ticker" />
+        type="com.gianlucaveschi.stockpricestracker.domain.model.TickerUiModel" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout

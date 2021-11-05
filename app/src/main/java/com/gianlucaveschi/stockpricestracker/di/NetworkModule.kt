@@ -41,11 +41,4 @@ class NetworkModule {
         return Moshi.Builder()
             .build()
     }
-
-    @Provides
-    fun provideTradeRepublicService(
-        scarlet: Scarlet
-    ): TradeRepublicService {
-        return scarlet.create()
-    }
 }

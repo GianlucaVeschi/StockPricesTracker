@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 import java.math.BigDecimal
 
 //@JsonClass(generateAdapter = true)
-data class Ticker(
+data class TickerUiModel(
     val tickerInfo: TickerInfo,
     val price: BigDecimal? = null
 ) {

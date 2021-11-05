@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import com.gianlucaveschi.stockpricestracker.databinding.MainFragmentBinding
 import com.gianlucaveschi.stockpricestracker.ui.util.setup
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -29,16 +28,10 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerView()
-        observeStocks()
+        initBinding()
     }
 
-    private fun observeStocks() {
-        Timber.d("observation...")
-    }
-
-
-    private fun setUpRecyclerView() {
+    private fun initBinding() {
         binding.stockPricesRecView.adapter = stockPricesAdapter
         binding.stockPricesRecView.setup()
         binding.lifecycleOwner = this

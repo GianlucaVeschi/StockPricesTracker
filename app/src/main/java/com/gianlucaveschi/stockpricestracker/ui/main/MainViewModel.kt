@@ -1,7 +1,7 @@
 package com.gianlucaveschi.stockpricestracker.ui.main
 
 import androidx.lifecycle.ViewModel
-import com.gianlucaveschi.stockpricestracker.domain.model.Ticker
+import com.gianlucaveschi.stockpricestracker.domain.model.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.getTickersList
 import com.gianlucaveschi.stockpricestracker.interactors.InitStockMarketObservationUseCase
 import com.gianlucaveschi.stockpricestracker.interactors.StartSubscriptionToStockMarketUseCase
@@ -17,10 +17,10 @@ class MainViewModel @Inject constructor(
     private val stopSubscriptionToStockMarketUseCase: StopSubscriptionToStockMarketUseCase
 ) : ViewModel() {
 
-    private val _stockPricesList = mutableListOf<Ticker>().apply {
+    private val _stockPricesList = mutableListOf<TickerUiModel>().apply {
         addAll(getTickersList())
     }
-    val stockPricesList: List<Ticker> = _stockPricesList
+    val stockPricesList: List<TickerUiModel> = _stockPricesList
 
     init {
         Timber.d("init observation")
