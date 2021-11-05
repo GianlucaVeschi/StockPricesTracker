@@ -15,5 +15,12 @@ TradeRepublic Coding Challenge
 - ~~Create Dummy Repository layer~~
 - ~~Inject Repository in the UseCases~~
   
-- Create Scarlet Service
+- Create Scarlet Service (See Scarlet ad-hoc branch)
 - Inject Service in the repository
+
+- Test ViewModels
+- Test UseCases
+- Test Repositories
+- Test Mappers
+
+- Delete all unnecessary logs.
