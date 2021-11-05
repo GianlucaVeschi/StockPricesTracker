@@ -1,6 +1,8 @@
 package com.gianlucaveschi.stockpricestracker.repo
 
 import com.gianlucaveschi.stockpricestracker.domain.model.*
+import com.gianlucaveschi.stockpricestracker.domain.model.scarlet.ScarletTickerSubscription
+import com.gianlucaveschi.stockpricestracker.domain.model.scarlet.ScarletTickerUnsubscription
 import com.gianlucaveschi.stockpricestracker.network.scarlet.TradeRepublicService
 import com.tinder.scarlet.WebSocket
 import kotlinx.coroutines.CoroutineScope
@@ -14,15 +16,10 @@ class ScarletMainRepositoryImpl(
     private val service: TradeRepublicService,
 ) : MainRepository {
 
-
-    override fun initTickerObservations(): Flow<TickerUiModel> {
-        Timber.d("init observation")
-        initObservationUsingScarlet()
-        return flowOf(TickerUiModel(TickerInfo("Apple", "US0378331005"), null))
-    }
-
     override fun subscribeToTicker(tickerInfo: TickerInfo) {
+        //Convert TickerInfo to Subscription format
         val scarletTicker = ScarletTickerSubscription(tickerInfo.isin)
+
         service.observeOnConnectionOpenedEvent()
             .flowOn(Dispatchers.IO)
             .onEach { event ->
@@ -39,24 +36,7 @@ class ScarletMainRepositoryImpl(
     }
 
     override fun unsubscribeFromTicker(tickerInfo: TickerInfo) {
-        Timber.d("unSubscribe From Ticker")
+        //Convert TickerInfo to Unsubscription format
+        val scarletTicker = ScarletTickerUnsubscription(tickerInfo.isin)
     }
-
-    private fun initObservationUsingScarlet() {
-        val appleTicker = ScarletTickerSubscription("US0378331005")
-        service.observeOnConnectionOpenedEvent()
-            .flowOn(Dispatchers.IO)
-            .onEach { event ->
-                if (event is WebSocket.Event.OnConnectionOpened<*>) {
-                    service.sendSubscribe(appleTicker)
-                }
-            }.launchIn(CoroutineScope(Dispatchers.IO))
-
-        service.observeTicker()
-            .flowOn(Dispatchers.IO)
-            .onEach {
-                Timber.d("The price for apple is $it")
-            }.launchIn(CoroutineScope(Dispatchers.IO))
-    }
-
 }
