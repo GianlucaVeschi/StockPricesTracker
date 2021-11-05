@@ -15,5 +15,5 @@ TradeRepublic Coding Challenge
 - ~~Create Dummy Repository layer~~
 - ~~Inject Repository in the UseCases~~
   
-- Create Scarlet Service
-- Inject Service in the repository
+- ~~Create Scarlet Service~~
+- ~~Inject Service in the repository~~

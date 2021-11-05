@@ -35,22 +35,17 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             initStockMarketObservationUseCase.run().collect { tickerUiModel ->
                 Timber.d("Collecting UiModel $tickerUiModel")
-                _tickersList.apply {
-                    set(indexOfFirst { it.tickerInfo == tickerUiModel.tickerInfo }, tickerUiModel)
-                }
-                _newDataAvailable.value = Unit
             }
         }
-        subscribeToStocks()
     }
 
     fun subscribeToStocks() {
         Timber.d("start observation")
-        _tickersList.forEach { startSubscriptionToStockMarketUseCase.run(it.tickerInfo) }
+        //_tickersList.forEach { startSubscriptionToStockMarketUseCase.run(it.tickerInfo) }
     }
 
     fun unsubscribeFromStocks() {
         Timber.d("stop observation")
-        tickersList.forEach { stopSubscriptionToStockMarketUseCase.run(it.tickerInfo) }
+        //tickersList.forEach { stopSubscriptionToStockMarketUseCase.run(it.tickerInfo) }
     }
 }

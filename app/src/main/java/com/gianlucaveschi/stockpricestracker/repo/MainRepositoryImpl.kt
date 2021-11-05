@@ -12,7 +12,6 @@ import timber.log.Timber
 
 @ExperimentalSerializationApi
 class MainRepositoryImpl(
-    private val service: TradeRepublicService,
     private val tradeRepublicWebSocket: TradeRepublicWebSocket
 ) : MainRepository {
 

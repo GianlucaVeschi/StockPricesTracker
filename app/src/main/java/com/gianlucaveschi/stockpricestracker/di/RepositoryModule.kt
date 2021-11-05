@@ -4,6 +4,7 @@ import com.gianlucaveschi.stockpricestracker.network.scarlet.TradeRepublicServic
 import com.gianlucaveschi.stockpricestracker.network.wslistener.TradeRepublicWebSocket
 import com.gianlucaveschi.stockpricestracker.repo.MainRepository
 import com.gianlucaveschi.stockpricestracker.repo.MainRepositoryImpl
+import com.gianlucaveschi.stockpricestracker.repo.ScarletMainRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,14 +16,21 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class RepositoryModule {
 
+//    @ExperimentalSerializationApi
+//    @Singleton
+//    @Provides
+//    fun provideMainRepository(
+//        tradeRepublicWebSocket: TradeRepublicWebSocket
+//    ): MainRepository = MainRepositoryImpl(
+//        tradeRepublicWebSocket
+//    )
+
     @ExperimentalSerializationApi
     @Singleton
     @Provides
-    fun provideMainRepository(
-        service : TradeRepublicService,
-        tradeRepublicWebSocket : TradeRepublicWebSocket
-    ) : MainRepository = MainRepositoryImpl(
-        service,
-        tradeRepublicWebSocket
+    fun provideScarletMainRepository(
+        service: TradeRepublicService,
+    ): MainRepository = ScarletMainRepositoryImpl(
+        service
     )
 }
