@@ -13,12 +13,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.OkHttpClient
 
 @Module
 @InstallIn(SingletonComponent::class)
 class ScarletModule {
 
+    @ExperimentalCoroutinesApi
     @Provides
     fun provideScarlet(
         application: StockPricesTrackerApplication,

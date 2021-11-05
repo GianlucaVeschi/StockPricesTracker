@@ -17,8 +17,8 @@ class ScarletMainRepositoryImpl(
 
     override fun initTickerObservations(): Flow<TickerUiModel> {
         Timber.d("init observation")
-        observeWebSocket()
-        return flowOf(TickerUiModel(TickerInfo("Apple","US0378331005"), null))
+        initObservationUsingScarlet()
+        return flowOf(TickerUiModel(TickerInfo("Apple", "US0378331005"), null))
     }
 
     override fun subscribeToTicker(tickerInfo: TickerInfo) {
@@ -31,32 +31,24 @@ class ScarletMainRepositoryImpl(
 
     //Scarlet Stuff ...
     fun initObservationUsingScarlet() {
-        //observeWebSocket()
-        //observeTicker()
-    }
-
-    private fun observeWebSocket() {
-        val subscriptionIsin = "{\"subscribe\":\"<US0378331005>\"}"
-        val ticketSubscription = TickerSubscription("US0378331005")
-        service.observeWebSocket()
+        //val appleTicker = TickerSubscription("US0378331005")
+        val appleTicker = ScarletTickerSubscription("US0378331005")
+        service.observeOnConnectionOpenedEvent()
             .flowOn(Dispatchers.IO)
             .onEach { event ->
-                Timber.d("Event = ${event::class.java.simpleName}")
                 if (event !is WebSocket.Event.OnMessageReceived) {
                     Timber.d("Event = ${event::class.java.simpleName}")
                 }
+
                 if (event is WebSocket.Event.OnConnectionOpened<*>) {
-                    Timber.d("Event = ${event::class.java.simpleName}")
-                    service.sendSubscribe(subscriptionIsin)
+                    service.sendSubscribe(appleTicker)
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
-    }
 
-    private fun observeTicker() {
         service.observeTicker()
             .flowOn(Dispatchers.IO)
             .onEach {
-                Timber.d("received ticker : $it")
+                Timber.d("The price for apple is $it")
             }.launchIn(CoroutineScope(Dispatchers.IO))
     }
 

@@ -79,6 +79,7 @@ dependencies {
     implementation("com.tinder.scarlet:websocket-okhttp:$scarlet_version")
     implementation("com.tinder.scarlet:message-adapter-moshi:$scarlet_version")
     implementation("com.tinder.scarlet:stream-adapter-coroutines:$scarlet_version")
+    implementation("com.tinder.scarlet:stream-adapter-rxjava2:$scarlet_version")
 
     //Moshi
     implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
