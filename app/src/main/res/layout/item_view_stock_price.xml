@@ -19,7 +19,7 @@
       tools:background="@color/black">
 
     <TextView
-        android:id="@+id/tvStockName"
+        android:id="@+id/nameTextView"
         style="@style/style_16_normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,6 +30,7 @@
         tools:text="name" />
 
     <TextView
+        android:id="@+id/priceTextView"
         style="@style/style_16_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
