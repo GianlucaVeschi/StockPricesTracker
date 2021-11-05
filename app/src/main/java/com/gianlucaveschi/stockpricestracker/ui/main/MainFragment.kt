@@ -15,7 +15,7 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: MainFragmentBinding
     private val mainViewModel: MainViewModel by viewModels()
-    private val stockPricesAdapter by lazy { StockPricesAdapter(mainViewModel.stockPricesList) }
+    private val stockPricesAdapter by lazy { StockPricesAdapter(mainViewModel.tickersList) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +29,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBinding()
+        observeViewModelCalls()
     }
 
     private fun initBinding() {
@@ -38,4 +39,11 @@ class MainFragment : Fragment() {
         binding.viewModel = mainViewModel
     }
 
+    private fun observeViewModelCalls() {
+        mainViewModel.newDataAvailable.observe(viewLifecycleOwner, ::onNewDataAvailable)
+    }
+
+    private fun onNewDataAvailable(@Suppress("UNUSED_PARAMETER") unit: Unit) {
+        stockPricesAdapter.notifyDataSetChanged()
+    }
 }
