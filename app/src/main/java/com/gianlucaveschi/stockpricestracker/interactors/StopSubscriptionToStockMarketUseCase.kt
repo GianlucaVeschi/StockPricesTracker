@@ -9,6 +9,7 @@ class StopSubscriptionToStockMarketUseCase(
 ) {
     fun run() {
         Timber.d("stop observation")
-        mainRepository.unsubscribeFromTicker(TickerInfo("Apple","1234"))
+        val tickerInfo = TickerInfo("Apple","US0378331005")
+        mainRepository.unsubscribeFromTicker(tickerInfo)
     }
 }

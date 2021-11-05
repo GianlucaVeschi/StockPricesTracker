@@ -1,13 +1,11 @@
 package com.gianlucaveschi.stockpricestracker.interactors
 
+import com.gianlucaveschi.stockpricestracker.domain.model.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.repo.MainRepository
-import timber.log.Timber
+import kotlinx.coroutines.flow.Flow
 
 class InitStockMarketObservationUseCase(
     private val mainRepository: MainRepository
 ) {
-    fun run() {
-        Timber.d("init observation")
-        mainRepository.initTickerObservations()
-    }
+    fun run() : Flow<TickerUiModel> = mainRepository.initTickerObservations()
 }

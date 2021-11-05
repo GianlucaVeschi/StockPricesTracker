@@ -9,6 +9,7 @@ class StartSubscriptionToStockMarketUseCase(
 ) {
     fun run() {
         Timber.d("start observation")
-        mainRepository.subscribeToTicker(TickerInfo("Apple", "1234"))
+        val tickerInfo = TickerInfo("Apple","US0378331005")
+        mainRepository.subscribeToTicker(tickerInfo)
     }
 }

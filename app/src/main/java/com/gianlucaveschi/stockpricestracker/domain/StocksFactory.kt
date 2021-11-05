@@ -6,7 +6,7 @@ import com.gianlucaveschi.stockpricestracker.domain.model.TickerUiModel
 
 fun getTickersList() = getHardcodedTickerInfo().map { TickerUiModel(it) }
 
-private fun getHardcodedTickerInfo(): List<TickerInfo> = listOf(
+fun getHardcodedTickerInfo(): List<TickerInfo> = listOf(
     TickerInfo("Microsoft Corp.", "US5949181045"),
     TickerInfo("Invesco Ltd.", "BMG491BT1088"),
     TickerInfo("Apple Inc.", "US0378331005"),
