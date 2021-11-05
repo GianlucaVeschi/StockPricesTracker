@@ -22,24 +22,31 @@ class ScarletMainRepositoryImpl(
     }
 
     override fun subscribeToTicker(tickerInfo: TickerInfo) {
-        Timber.d("subscribe To Ticker")
+        val scarletTicker = ScarletTickerSubscription(tickerInfo.isin)
+        service.observeOnConnectionOpenedEvent()
+            .flowOn(Dispatchers.IO)
+            .onEach { event ->
+                if (event is WebSocket.Event.OnConnectionOpened<*>) {
+                    service.sendSubscribe(scarletTicker)
+                }
+            }.launchIn(CoroutineScope(Dispatchers.IO))
+
+        service.observeTicker()
+            .flowOn(Dispatchers.IO)
+            .onEach {
+                Timber.d("The price for ${tickerInfo.name} is ${it.price}")
+            }.launchIn(CoroutineScope(Dispatchers.IO))
     }
 
     override fun unsubscribeFromTicker(tickerInfo: TickerInfo) {
         Timber.d("unSubscribe From Ticker")
     }
 
-    //Scarlet Stuff ...
-    fun initObservationUsingScarlet() {
-        //val appleTicker = TickerSubscription("US0378331005")
+    private fun initObservationUsingScarlet() {
         val appleTicker = ScarletTickerSubscription("US0378331005")
         service.observeOnConnectionOpenedEvent()
             .flowOn(Dispatchers.IO)
             .onEach { event ->
-                if (event !is WebSocket.Event.OnMessageReceived) {
-                    Timber.d("Event = ${event::class.java.simpleName}")
-                }
-
                 if (event is WebSocket.Event.OnConnectionOpened<*>) {
                     service.sendSubscribe(appleTicker)
                 }
