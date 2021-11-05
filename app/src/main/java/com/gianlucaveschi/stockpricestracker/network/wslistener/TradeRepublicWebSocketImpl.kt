@@ -1,62 +1,61 @@
 package com.gianlucaveschi.stockpricestracker.network.wslistener
 
-import com.gianlucaveschi.stockpricestracker.domain.getTickersList
+import com.gianlucaveschi.stockpricestracker.domain.model.TickerApiModel
+import com.gianlucaveschi.stockpricestracker.domain.model.TickerSubscription
+import com.gianlucaveschi.stockpricestracker.domain.model.TickerUnsubscription
+import com.gianlucaveschi.stockpricestracker.util.Constants.CLOSE_CONNECTION_TIMEOUT
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import okhttp3.*
-import okio.ByteString
 import timber.log.Timber
 
 @ExperimentalSerializationApi
+@ExperimentalCoroutinesApi
 class TradeRepublicWebSocketImpl(
     private val client: OkHttpClient,
     private val openConnectionRequest: Request
-) {
+) : TradeRepublicWebSocket {
 
     //Persistent bi-directional communication channel between a client (Android) and a BE service
     private lateinit var webSocket: WebSocket
 
-    private var isConnected = false
-    private val tickerList = getTickersList()
+    private val tickerUpdatesFlow: Flow<TickerApiModel> = callbackFlow {
+        val json = Json { ignoreUnknownKeys = true }
+        val webSocketListener = object : WebSocketListener() {
 
-    fun initWebSocket() {
-        webSocket = client.newWebSocket(openConnectionRequest, webSocketListener)
-    }
+            override fun onOpen(webSocket: WebSocket, response: Response) {
+                Timber.d("onOpen")
+            }
 
-    //Internal WebSocketListener
-    private val webSocketListener: WebSocketListener = object : WebSocketListener() {
-        override fun onOpen(webSocket: WebSocket, response: Response) {
-            Timber.d("onOpen")
-            isConnected = true
+            override fun onMessage(webSocket: WebSocket, text: String) {
+                Timber.d("onMessage $text")
+                trySend(json.decodeFromString(text))
+            }
 
-            for (i in tickerList.indices) {
-                val currentISIN: String = tickerList[i].tickerInfo.isin
-                val toSend = "{\"subscribe\":\"<$currentISIN>\"}"
-                Timber.d("current ISIN : $toSend")
-                webSocket.send(toSend)
+            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+                super.onFailure(webSocket, t, response)
+                t.printStackTrace()
             }
         }
 
-        override fun onMessage(webSocket: WebSocket, text: String) {
-            Timber.d("MESSAGE: $text")
-        }
+        webSocket = client.newWebSocket(openConnectionRequest, webSocketListener)
 
-        override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-            Timber.d("MESSAGE: ${bytes.hex()}")
-        }
+        awaitClose { webSocket.close(CLOSE_CONNECTION_TIMEOUT, null) }
+    }
 
-        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-            isConnected = false
-            webSocket.close(1000, null)
-            webSocket.cancel()
-            Timber.d("CLOSE: $code $reason")
-        }
+    override fun observeTickerUpdates(): Flow<TickerApiModel> = tickerUpdatesFlow
 
-        override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-            Timber.d("onClosed: $code REASON: $reason")
-        }
+    override fun startTickerSubscription(tickerSubscription: TickerSubscription) {
+        webSocket.send(Json.encodeToString(tickerSubscription))
+    }
 
-        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-            Timber.d("onFailure $response")
-        }
+    override fun stopTickerSubscription(tickerUnsubscription: TickerUnsubscription) {
+        webSocket.send(Json.encodeToString(tickerUnsubscription))
     }
 }
