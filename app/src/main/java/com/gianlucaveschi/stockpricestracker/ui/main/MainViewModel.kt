@@ -10,6 +10,8 @@ import com.gianlucaveschi.stockpricestracker.interactors.StartSubscriptionToStoc
 import com.gianlucaveschi.stockpricestracker.interactors.StopSubscriptionToStockMarketUseCase
 import com.gianlucaveschi.stockpricestracker.ui.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,19 +27,21 @@ class MainViewModel @Inject constructor(
     private val _newDataAvailable = SingleLiveEvent<Unit>()
     val newDataAvailable: LiveData<Unit> = _newDataAvailable
 
-    private val _tickersList = mutableListOf<TickerUiModel>().apply {
+    private val _tickersListStateFlow = MutableStateFlow(mutableListOf<TickerUiModel>().apply {
         addAll(getTickersList())
-    }
-    val tickersList: List<TickerUiModel> = _tickersList
+    })
+    val tickersListStateFlow: StateFlow<List<TickerUiModel>> = _tickersListStateFlow
 
     init {
         Timber.d("init observation")
         viewModelScope.launch {
             initStockMarketObservationUseCase.run().collect { tickerUiModel ->
                 Timber.d("Collecting UiModel $tickerUiModel")
-                _tickersList.apply {
+
+                _tickersListStateFlow.value.apply {
                     set(indexOfFirst { it.tickerInfo == tickerUiModel.tickerInfo }, tickerUiModel)
                 }
+
                 _newDataAvailable.value = Unit
             }
         }
@@ -45,12 +49,14 @@ class MainViewModel @Inject constructor(
     }
 
     fun subscribeToStocks() {
-        Timber.d("start observation")
-        _tickersList.forEach { startSubscriptionToStockMarketUseCase.run(it.tickerInfo) }
+        _tickersListStateFlow.value.forEach {
+            startSubscriptionToStockMarketUseCase.run(it.tickerInfo)
+        }
     }
 
     fun unsubscribeFromStocks() {
-        Timber.d("stop observation")
-        tickersList.forEach { stopSubscriptionToStockMarketUseCase.run(it.tickerInfo) }
+        _tickersListStateFlow.value.forEach {
+            stopSubscriptionToStockMarketUseCase.run(it.tickerInfo)
+        }
     }
 }

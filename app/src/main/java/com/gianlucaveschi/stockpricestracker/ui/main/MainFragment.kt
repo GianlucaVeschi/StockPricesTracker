@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import androidx.fragment.app.viewModels
 import com.gianlucaveschi.stockpricestracker.databinding.MainFragmentBinding
 import com.gianlucaveschi.stockpricestracker.ui.util.setup
@@ -15,7 +17,7 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: MainFragmentBinding
     private val mainViewModel: MainViewModel by viewModels()
-    private val stockPricesAdapter by lazy { StockPricesAdapter(mainViewModel.tickersList) }
+    private val stockPricesAdapter by lazy { StockPricesAdapter(mainViewModel.tickersListStateFlow.value) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +39,7 @@ class MainFragment : Fragment() {
         binding.stockPricesRecView.setup()
         binding.lifecycleOwner = this
         binding.viewModel = mainViewModel
+
     }
 
     private fun observeViewModelCalls() {
