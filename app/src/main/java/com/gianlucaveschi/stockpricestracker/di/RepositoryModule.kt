@@ -1,7 +1,9 @@
 package com.gianlucaveschi.stockpricestracker.di
 
+import com.gianlucaveschi.stockpricestracker.domain.mapper.Mapper
+import com.gianlucaveschi.stockpricestracker.domain.mapper.MapperTickerApiModelToTickerUiModel
 import com.gianlucaveschi.stockpricestracker.network.scarlet.TradeRepublicService
-import com.gianlucaveschi.stockpricestracker.network.wslistener.TradeRepublicWebSocketImpl
+import com.gianlucaveschi.stockpricestracker.network.wslistener.TradeRepublicWebSocket
 import com.gianlucaveschi.stockpricestracker.repo.MainRepository
 import com.gianlucaveschi.stockpricestracker.repo.MainRepositoryImpl
 import dagger.Module
@@ -15,14 +17,22 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class RepositoryModule {
 
+    @Singleton
+    @Provides
+    fun provideMapperTickerApiModelToTickerUiModel() : MapperTickerApiModelToTickerUiModel {
+        return MapperTickerApiModelToTickerUiModel()
+    }
+
     @ExperimentalSerializationApi
     @Singleton
     @Provides
     fun provideMainRepository(
         service : TradeRepublicService,
-        tradeRepublicWebSocketImpl : TradeRepublicWebSocketImpl
+        tradeRepublicWebSocket : TradeRepublicWebSocket,
+        mapperTickerApiModelToTickerUiModel : MapperTickerApiModelToTickerUiModel
     ) : MainRepository = MainRepositoryImpl(
         service,
-        tradeRepublicWebSocketImpl
+        tradeRepublicWebSocket,
+        mapperTickerApiModelToTickerUiModel
     )
 }
