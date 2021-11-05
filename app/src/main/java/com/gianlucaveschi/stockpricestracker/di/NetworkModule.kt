@@ -3,9 +3,7 @@ package com.gianlucaveschi.stockpricestracker.di
 import android.content.Context
 import com.gianlucaveschi.stockpricestracker.BuildConfig
 import com.gianlucaveschi.stockpricestracker.StockPricesTrackerApplication
-import com.gianlucaveschi.stockpricestracker.network.scarlet.TradeRepublicService
 import com.squareup.moshi.Moshi
-import com.tinder.scarlet.Scarlet
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

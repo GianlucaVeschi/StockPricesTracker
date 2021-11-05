@@ -1,7 +1,6 @@
 package com.gianlucaveschi.stockpricestracker.di
 
-import com.gianlucaveschi.stockpricestracker.network.scarlet.TradeRepublicService
-import com.gianlucaveschi.stockpricestracker.network.wslistener.TradeRepublicWebSocket
+import com.gianlucaveschi.stockpricestracker.network.TradeRepublicWebSocket
 import com.gianlucaveschi.stockpricestracker.repo.MainRepository
 import com.gianlucaveschi.stockpricestracker.repo.MainRepositoryImpl
 import dagger.Module
@@ -19,10 +18,8 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideMainRepository(
-        service : TradeRepublicService,
         tradeRepublicWebSocket : TradeRepublicWebSocket
     ) : MainRepository = MainRepositoryImpl(
-        service,
         tradeRepublicWebSocket
     )
 }

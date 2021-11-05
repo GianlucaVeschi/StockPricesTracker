@@ -1,7 +1,7 @@
 package com.gianlucaveschi.stockpricestracker.di
 
-import com.gianlucaveschi.stockpricestracker.network.wslistener.TradeRepublicWebSocketImpl
-import com.gianlucaveschi.stockpricestracker.network.wslistener.TradeRepublicWebSocket
+import com.gianlucaveschi.stockpricestracker.network.TradeRepublicWebSocketImpl
+import com.gianlucaveschi.stockpricestracker.network.TradeRepublicWebSocket
 import com.gianlucaveschi.stockpricestracker.util.Constants
 import dagger.Module
 import dagger.Provides

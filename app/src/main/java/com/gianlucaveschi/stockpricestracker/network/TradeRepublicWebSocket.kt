@@ -1,4 +1,4 @@
-package com.gianlucaveschi.stockpricestracker.network.wslistener
+package com.gianlucaveschi.stockpricestracker.network
 
 import com.gianlucaveschi.stockpricestracker.domain.model.TickerApiModel
 import com.gianlucaveschi.stockpricestracker.domain.model.TickerSubscription
