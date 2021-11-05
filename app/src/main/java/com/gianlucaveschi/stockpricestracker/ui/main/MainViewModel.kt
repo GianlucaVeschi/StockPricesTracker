@@ -2,24 +2,21 @@ package com.gianlucaveschi.stockpricestracker.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.gianlucaveschi.stockpricestracker.domain.getHardcodedTickerInfo
 import com.gianlucaveschi.stockpricestracker.domain.model.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.getTickersList
-import com.gianlucaveschi.stockpricestracker.interactors.InitStockMarketObservationUseCase
-import com.gianlucaveschi.stockpricestracker.interactors.StartSubscriptionToStockMarketUseCase
-import com.gianlucaveschi.stockpricestracker.interactors.StopSubscriptionToStockMarketUseCase
+import com.gianlucaveschi.stockpricestracker.domain.model.TickerInfo
+import com.gianlucaveschi.stockpricestracker.interactors.SubscribeToTickerUseCase
+import com.gianlucaveschi.stockpricestracker.interactors.UnsubscribeFromTickerUseCase
 import com.gianlucaveschi.stockpricestracker.ui.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val initStockMarketObservationUseCase: InitStockMarketObservationUseCase,
-    private val startSubscriptionToStockMarketUseCase: StartSubscriptionToStockMarketUseCase,
-    private val stopSubscriptionToStockMarketUseCase: StopSubscriptionToStockMarketUseCase
+    private val subscribeToTickerUseCase: SubscribeToTickerUseCase,
+    private val unsubscribeFromTickerUseCase: UnsubscribeFromTickerUseCase
 ) : ViewModel() {
 
     private val _newDataAvailable = SingleLiveEvent<Unit>()
@@ -32,20 +29,20 @@ class MainViewModel @Inject constructor(
 
     init {
         Timber.d("init observation")
-        viewModelScope.launch {
-            initStockMarketObservationUseCase.run().collect { tickerUiModel ->
-                Timber.d("Collecting UiModel $tickerUiModel")
-            }
-        }
+        subscribeToStocks()
     }
 
     fun subscribeToStocks() {
         Timber.d("start observation")
-        //_tickersList.forEach { startSubscriptionToStockMarketUseCase.run(it.tickerInfo) }
+        getHardcodedTickerInfo().forEach { ticker ->
+            subscribeToTickerUseCase.run(ticker)
+        }
     }
 
     fun unsubscribeFromStocks() {
         Timber.d("stop observation")
+        val ticker = TickerInfo("Apple Inc.", "US0378331005")
+        unsubscribeFromTickerUseCase.run(ticker)
         //tickersList.forEach { stopSubscriptionToStockMarketUseCase.run(it.tickerInfo) }
     }
 }

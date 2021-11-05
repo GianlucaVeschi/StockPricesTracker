@@ -1,13 +1,11 @@
 package com.gianlucaveschi.stockpricestracker.network.scarlet
 
-import com.gianlucaveschi.stockpricestracker.domain.model.ScarletTickerApiModel
-import com.gianlucaveschi.stockpricestracker.domain.model.ScarletTickerSubscription
-import com.gianlucaveschi.stockpricestracker.domain.model.TickerApiModel
-import com.gianlucaveschi.stockpricestracker.domain.model.TickerSubscription
+import com.gianlucaveschi.stockpricestracker.domain.model.scarlet.ScarletTickerApiModel
+import com.gianlucaveschi.stockpricestracker.domain.model.scarlet.ScarletTickerSubscription
+import com.gianlucaveschi.stockpricestracker.domain.model.scarlet.ScarletTickerUnsubscription
 import com.tinder.scarlet.WebSocket
 import com.tinder.scarlet.ws.Receive
 import com.tinder.scarlet.ws.Send
-import io.reactivex.Flowable
 import kotlinx.coroutines.flow.Flow
 
 interface TradeRepublicService {
@@ -17,6 +15,9 @@ interface TradeRepublicService {
      * */
     @Send
     fun sendSubscribe(subscribe: ScarletTickerSubscription)
+
+    @Send
+    fun stopSubscribe(unsubscribe: ScarletTickerUnsubscription)
 
     /**
      * A @Receive annotated method returns a stream of incoming messages or events about the current connection state.
