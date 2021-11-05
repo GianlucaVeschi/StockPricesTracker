@@ -1,14 +1,17 @@
 package com.gianlucaveschi.stockpricestracker.ui.main
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.gianlucaveschi.stockpricestracker.domain.model.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.getTickersList
 import com.gianlucaveschi.stockpricestracker.interactors.InitStockMarketObservationUseCase
 import com.gianlucaveschi.stockpricestracker.interactors.StartSubscriptionToStockMarketUseCase
 import com.gianlucaveschi.stockpricestracker.interactors.StopSubscriptionToStockMarketUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
+import kotlinx.coroutines.flow.collect
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -24,7 +27,11 @@ class MainViewModel @Inject constructor(
 
     init {
         Timber.d("init observation")
-        initStockMarketObservationUseCase.run()
+        viewModelScope.launch {
+            initStockMarketObservationUseCase.run().collect {
+                Timber.d("Collecting UiModel $it")
+            }
+        }
     }
 
     fun subscribeToStocks() {
