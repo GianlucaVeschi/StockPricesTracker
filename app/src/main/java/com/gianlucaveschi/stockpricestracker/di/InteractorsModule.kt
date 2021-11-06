@@ -1,8 +1,8 @@
 package com.gianlucaveschi.stockpricestracker.di
 
 import com.gianlucaveschi.stockpricestracker.interactors.InitStockMarketObservationUseCase
-import com.gianlucaveschi.stockpricestracker.interactors.StartSubscriptionToStockMarketUseCase
-import com.gianlucaveschi.stockpricestracker.interactors.StopSubscriptionToStockMarketUseCase
+import com.gianlucaveschi.stockpricestracker.interactors.SubscribeToTickerUseCase
+import com.gianlucaveschi.stockpricestracker.interactors.UnsubscribeFromTickerUseCase
 import com.gianlucaveschi.stockpricestracker.repo.MainRepository
 import dagger.Module
 import dagger.Provides
@@ -26,7 +26,7 @@ class InteractorsModule {
     @Provides
     fun provideStartSubscriptionToStockMarketUseCase(
         mainRepository: MainRepository
-    ) = StartSubscriptionToStockMarketUseCase(
+    ) = SubscribeToTickerUseCase(
         mainRepository
     )
 
@@ -34,7 +34,7 @@ class InteractorsModule {
     @Provides
     fun provideStopSubscriptionToStockMarketUseCase(
         mainRepository: MainRepository
-    ) = StopSubscriptionToStockMarketUseCase(
+    ) = UnsubscribeFromTickerUseCase(
         mainRepository
     )
 

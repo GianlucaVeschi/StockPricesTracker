@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.gianlucaveschi.stockpricestracker.domain.model.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.getTickersList
 import com.gianlucaveschi.stockpricestracker.interactors.InitStockMarketObservationUseCase
-import com.gianlucaveschi.stockpricestracker.interactors.StartSubscriptionToStockMarketUseCase
-import com.gianlucaveschi.stockpricestracker.interactors.StopSubscriptionToStockMarketUseCase
+import com.gianlucaveschi.stockpricestracker.interactors.SubscribeToTickerUseCase
+import com.gianlucaveschi.stockpricestracker.interactors.UnsubscribeFromTickerUseCase
 import com.gianlucaveschi.stockpricestracker.ui.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,8 +20,8 @@ import kotlinx.coroutines.flow.collect
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val initStockMarketObservationUseCase: InitStockMarketObservationUseCase,
-    private val startSubscriptionToStockMarketUseCase: StartSubscriptionToStockMarketUseCase,
-    private val stopSubscriptionToStockMarketUseCase: StopSubscriptionToStockMarketUseCase
+    private val subscribeToTickerUseCase: SubscribeToTickerUseCase,
+    private val unsubscribeFromTickerUseCase: UnsubscribeFromTickerUseCase
 ) : ViewModel() {
 
     private val _newDataAvailable = SingleLiveEvent<Unit>()
@@ -45,18 +45,18 @@ class MainViewModel @Inject constructor(
                 _newDataAvailable.value = Unit
             }
         }
-        subscribeToStocks()
+        subscribeToTicker()
     }
 
-    fun subscribeToStocks() {
+    fun subscribeToTicker() {
         _tickersListStateFlow.value.forEach {
-            startSubscriptionToStockMarketUseCase.run(it.tickerInfo)
+            subscribeToTickerUseCase.run(it.tickerInfo)
         }
     }
 
-    fun unsubscribeFromStocks() {
+    fun unsubscribeFromTicker() {
         _tickersListStateFlow.value.forEach {
-            stopSubscriptionToStockMarketUseCase.run(it.tickerInfo)
+            unsubscribeFromTickerUseCase.run(it.tickerInfo)
         }
     }
 }
