@@ -1,6 +1,6 @@
 package com.gianlucaveschi.stockpricestracker.domain.interactors.di
 
-import com.gianlucaveschi.stockpricestracker.domain.interactors.InitStockMarketObservationUseCase
+import com.gianlucaveschi.stockpricestracker.domain.interactors.ObserveTickerUpdatesUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.SubscribeToTickerUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.UnsubscribeFromTickerUseCase
 import com.gianlucaveschi.stockpricestracker.data.repo.MainRepository
@@ -18,7 +18,7 @@ class InteractorsModule {
     @Provides
     fun provideInitStockMarketObservationUseCase(
         mainRepository: MainRepository
-    ) = InitStockMarketObservationUseCase(
+    ) = ObserveTickerUpdatesUseCase(
         mainRepository
     )
 

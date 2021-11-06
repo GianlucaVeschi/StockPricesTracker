@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gianlucaveschi.stockpricestracker.domain.entities.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.entities.getTickersList
-import com.gianlucaveschi.stockpricestracker.domain.interactors.InitStockMarketObservationUseCase
+import com.gianlucaveschi.stockpricestracker.domain.interactors.ObserveTickerUpdatesUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.SubscribeToTickerUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.UnsubscribeFromTickerUseCase
 import com.gianlucaveschi.stockpricestracker.presentation.util.SingleLiveEvent
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.collect
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val initStockMarketObservationUseCase: InitStockMarketObservationUseCase,
+    private val observeTickerUpdatesUseCase: ObserveTickerUpdatesUseCase,
     private val subscribeToTickerUseCase: SubscribeToTickerUseCase,
     private val unsubscribeFromTickerUseCase: UnsubscribeFromTickerUseCase
 ) : ViewModel() {
@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
     init {
         Timber.d("init observation")
         viewModelScope.launch {
-            initStockMarketObservationUseCase().collect { tickerUiModel ->
+            observeTickerUpdatesUseCase().collect { tickerUiModel ->
                 Timber.d("Collecting UiModel $tickerUiModel")
 
                 _tickersListStateFlow.value.apply {
