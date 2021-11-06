@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.gianlucaveschi.stockpricestracker.ui.main.MainViewModel"/>
+            type="com.gianlucaveschi.stockpricestracker.presentation.main.MainViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
