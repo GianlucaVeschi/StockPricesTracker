@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gianlucaveschi.stockpricestracker.databinding.ItemViewStockPriceBinding
-import com.gianlucaveschi.stockpricestracker.domain.entities.TickerUiModel
+import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
 
 class StockPricesAdapter(
     private val tickersList: List<TickerUiModel>
@@ -33,7 +33,7 @@ class StockPricesAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(tickerUiModel: TickerUiModel) {
             binding.apply {
-                stockModel = tickerUiModel
+                ticker = tickerUiModel
                 executePendingBindings()
             }
         }

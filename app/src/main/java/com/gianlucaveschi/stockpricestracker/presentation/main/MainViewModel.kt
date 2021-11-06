@@ -3,8 +3,8 @@ package com.gianlucaveschi.stockpricestracker.presentation.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gianlucaveschi.stockpricestracker.domain.entities.TickerUiModel
-import com.gianlucaveschi.stockpricestracker.domain.entities.getTickersList
+import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
+import com.gianlucaveschi.stockpricestracker.domain.entities.util.getHardcodedTickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.interactors.ObserveTickerUpdatesUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.SubscribeToTickerUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.UnsubscribeFromTickerUseCase
@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor(
     val newDataAvailable: LiveData<Unit> = _newDataAvailable
 
     private val _tickersListStateFlow = MutableStateFlow(mutableListOf<TickerUiModel>().apply {
-        addAll(getTickersList())
+        addAll(getHardcodedTickerUiModel())
     })
     val tickersListStateFlow: StateFlow<List<TickerUiModel>> = _tickersListStateFlow
 
@@ -39,7 +39,9 @@ class MainViewModel @Inject constructor(
                 Timber.d("Collecting UiModel $tickerUiModel")
 
                 _tickersListStateFlow.value.apply {
-                    set(indexOfFirst { it.tickerInfo == tickerUiModel.tickerInfo }, tickerUiModel)
+                    set(indexOfFirst {
+                        it.isin == tickerUiModel.isin
+                    }, tickerUiModel)
                 }
 
                 _newDataAvailable.value = Unit
@@ -50,13 +52,13 @@ class MainViewModel @Inject constructor(
 
     fun subscribeToTicker() {
         _tickersListStateFlow.value.forEach {
-            subscribeToTickerUseCase(it.tickerInfo)
+            subscribeToTickerUseCase(it)
         }
     }
 
     fun unsubscribeFromTicker() {
         _tickersListStateFlow.value.forEach {
-            unsubscribeFromTickerUseCase(it.tickerInfo)
+            unsubscribeFromTickerUseCase(it)
         }
     }
 }

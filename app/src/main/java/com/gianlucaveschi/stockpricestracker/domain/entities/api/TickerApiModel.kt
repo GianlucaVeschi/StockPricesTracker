@@ -1,4 +1,4 @@
-package com.gianlucaveschi.stockpricestracker.domain.entities
+package com.gianlucaveschi.stockpricestracker.domain.entities.api
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName

@@ -6,8 +6,8 @@
   <data>
 
     <variable
-        name="stockModel"
-        type="com.gianlucaveschi.stockpricestracker.domain.entities.TickerUiModel" />
+        name="ticker"
+        type="com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
         style="@style/style_16_normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{stockModel.tickerInfo.name}"
+        android:text="@{ticker.name}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
         style="@style/style_16_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{stockModel.formattedPrice}"
+        android:text="@{ticker.formattedPrice}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="price" />

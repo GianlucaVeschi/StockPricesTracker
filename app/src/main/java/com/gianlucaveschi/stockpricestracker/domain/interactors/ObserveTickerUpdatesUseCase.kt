@@ -1,6 +1,6 @@
 package com.gianlucaveschi.stockpricestracker.domain.interactors
 
-import com.gianlucaveschi.stockpricestracker.domain.entities.TickerUiModel
+import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.data.repo.MainRepository
 import kotlinx.coroutines.flow.Flow
 
