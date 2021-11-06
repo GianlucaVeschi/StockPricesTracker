@@ -2,6 +2,8 @@ package com.gianlucaveschi.stockpricestracker.data.mapper
 
 import com.gianlucaveschi.stockpricestracker.domain.entities.getHardcodedTickerInfo
 import com.gianlucaveschi.stockpricestracker.domain.entities.*
+import com.gianlucaveschi.stockpricestracker.domain.entities.api.TickerSubscription
+import com.gianlucaveschi.stockpricestracker.domain.entities.api.TickerUnsubscription
 
 fun TickerApiModel.mapToUiModel(): TickerUiModel = this.run {
     TickerUiModel(
@@ -9,7 +11,6 @@ fun TickerApiModel.mapToUiModel(): TickerUiModel = this.run {
         price = price
     )
 }
-
 
 fun TickerInfo.mapToTicketSubscription(): TickerSubscription = this.run {
     TickerSubscription(this.isin)
