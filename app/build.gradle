@@ -95,4 +95,7 @@ dependencies {
     //Mockk
     testImplementation "io.mockk:mockk:${mockk_version}"
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
+
+    //Kotlin Test
+    testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_test_version"
 }
