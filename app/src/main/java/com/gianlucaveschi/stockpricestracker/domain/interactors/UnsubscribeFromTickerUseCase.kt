@@ -6,7 +6,7 @@ import com.gianlucaveschi.stockpricestracker.data.repo.MainRepository
 class UnsubscribeFromTickerUseCase(
     private val mainRepository: MainRepository
 ) {
-    fun run(tickerInfo: TickerInfo) {
+    operator fun invoke(tickerInfo: TickerInfo) {
         mainRepository.unsubscribeFromTicker(tickerInfo)
     }
 }

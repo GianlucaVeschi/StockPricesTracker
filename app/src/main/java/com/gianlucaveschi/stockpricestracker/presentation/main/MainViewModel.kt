@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
     init {
         Timber.d("init observation")
         viewModelScope.launch {
-            initStockMarketObservationUseCase.run().collect { tickerUiModel ->
+            initStockMarketObservationUseCase().collect { tickerUiModel ->
                 Timber.d("Collecting UiModel $tickerUiModel")
 
                 _tickersListStateFlow.value.apply {
@@ -50,13 +50,13 @@ class MainViewModel @Inject constructor(
 
     fun subscribeToTicker() {
         _tickersListStateFlow.value.forEach {
-            subscribeToTickerUseCase.run(it.tickerInfo)
+            subscribeToTickerUseCase(it.tickerInfo)
         }
     }
 
     fun unsubscribeFromTicker() {
         _tickersListStateFlow.value.forEach {
-            unsubscribeFromTickerUseCase.run(it.tickerInfo)
+            unsubscribeFromTickerUseCase(it.tickerInfo)
         }
     }
 }
