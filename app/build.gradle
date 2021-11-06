@@ -91,4 +91,8 @@ dependencies {
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+
+    //Mockk
+    testImplementation "io.mockk:mockk:${mockk_version}"
+    androidTestImplementation "io.mockk:mockk-android:$mockk_version"
 }
