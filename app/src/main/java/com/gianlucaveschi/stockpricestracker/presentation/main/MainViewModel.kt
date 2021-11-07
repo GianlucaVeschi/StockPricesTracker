@@ -12,10 +12,10 @@ import com.gianlucaveschi.stockpricestracker.presentation.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -24,6 +24,7 @@ class MainViewModel @Inject constructor(
     private val unsubscribeFromTickerUseCase: UnsubscribeFromTickerUseCase
 ) : ViewModel() {
 
+    //todo : Change
     private val _newDataAvailable = SingleLiveEvent<Unit>()
     val newDataAvailable: LiveData<Unit> = _newDataAvailable
 
@@ -33,30 +34,37 @@ class MainViewModel @Inject constructor(
     val tickersListStateFlow: StateFlow<List<TickerUiModel>> = _tickersListStateFlow
 
     init {
-        Timber.d("init observation")
         viewModelScope.launch {
-            observeTickerUpdatesUseCase().collect { tickerUiModel ->
-                Timber.d("Collecting UiModel $tickerUiModel")
-
-                _tickersListStateFlow.value.apply {
-                    set(indexOfFirst {
-                        it.isin == tickerUiModel.isin
-                    }, tickerUiModel)
-                }
-
-                _newDataAvailable.value = Unit
-            }
+            oberveTickersUpdates()
         }
-        subscribeToTicker()
+        subscribeToAllTickers()
     }
 
-    fun subscribeToTicker() {
+    private suspend fun oberveTickersUpdates() {
+        observeTickerUpdatesUseCase().collect { tickerUiModel ->
+            Timber.d("Collecting UiModel $tickerUiModel")
+            updateUI(tickerUiModel)
+        }
+    }
+
+    //todo : Change
+    private fun updateUI(tickerUiModel: TickerUiModel) {
+        _tickersListStateFlow.value.apply {
+            set(indexOfFirst {
+                it.isin == tickerUiModel.isin
+            }, tickerUiModel)
+        }
+
+        _newDataAvailable.value = Unit
+    }
+
+    fun subscribeToAllTickers() {
         _tickersListStateFlow.value.forEach {
             subscribeToTickerUseCase(it)
         }
     }
 
-    fun unsubscribeFromTicker() {
+    fun unsubscribeFromAllTickers() {
         _tickersListStateFlow.value.forEach {
             unsubscribeFromTickerUseCase(it)
         }
