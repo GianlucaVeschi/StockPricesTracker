@@ -5,10 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gianlucaveschi.stockpricestracker.databinding.ItemViewTickerBinding
 import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
+import com.gianlucaveschi.stockpricestracker.domain.entities.util.getHardcodedTickerUiModel
 
-class TickerAdapter(
-    private val tickersList: List<TickerUiModel>
-) : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
+class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
+
+    private var tickersList: List<TickerUiModel> = listOf()
+
+    fun setTickersList(tickersList : List<TickerUiModel>) {
+        this.tickersList = tickersList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
         return TickerViewHolder(
