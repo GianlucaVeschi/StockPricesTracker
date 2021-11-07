@@ -37,6 +37,14 @@ class TradeRepublicWebSocketImpl(
                 trySend(json.decodeFromString(text))
             }
 
+            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+                Timber.d("onClosed")
+            }
+
+            override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+                Timber.d("onClosing")
+            }
+
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 super.onFailure(webSocket, t, response)
                 t.printStackTrace()
