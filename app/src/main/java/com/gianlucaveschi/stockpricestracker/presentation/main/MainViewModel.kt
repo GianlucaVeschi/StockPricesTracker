@@ -34,16 +34,16 @@ class MainViewModel @Inject constructor(
     val tickersListStateFlow: StateFlow<List<TickerUiModel>> = _tickersListStateFlow
 
     init {
-        viewModelScope.launch {
-            oberveTickersUpdates()
-        }
-        subscribeToAllTickers()
+        observeTickersUpdates()
+        //subscribeToAllTickers()
     }
 
-    private suspend fun oberveTickersUpdates() {
-        observeTickerUpdatesUseCase().collect { tickerUiModel ->
-            Timber.d("Collecting UiModel $tickerUiModel")
-            updateUI(tickerUiModel)
+    fun observeTickersUpdates() {
+        viewModelScope.launch {
+            observeTickerUpdatesUseCase().collect { tickerUiModel ->
+                Timber.d("Collecting UiModel $tickerUiModel")
+                updateUI(tickerUiModel)
+            }
         }
     }
 
