@@ -35,25 +35,21 @@ class MainViewModel @Inject constructor(
 
     init {
         observeTickersUpdates()
-        //subscribeToAllTickers()
+        subscribeToAllTickers()
     }
 
     fun observeTickersUpdates() {
         viewModelScope.launch {
             observeTickerUpdatesUseCase().collect { tickerUiModel ->
                 Timber.d("Collecting UiModel $tickerUiModel")
-                updateUI(tickerUiModel)
+                updateTickerInTheList(tickerUiModel)
             }
         }
     }
 
-    //todo : Change
-    private fun updateUI(tickerUiModel: TickerUiModel) {
-        _tickersListStateFlow.value.apply {
-            set(indexOfFirst {
-                it.isin == tickerUiModel.isin
-            }, tickerUiModel)
-        }
+    private fun updateTickerInTheList(ticker: TickerUiModel) {
+        val index = _tickersListStateFlow.value.getTickerIndex(ticker)
+        _tickersListStateFlow.value[index] = ticker
 
         _newDataAvailable.value = Unit
     }
@@ -69,4 +65,8 @@ class MainViewModel @Inject constructor(
             unsubscribeFromTickerUseCase(it)
         }
     }
+}
+
+private fun MutableList<TickerUiModel>.getTickerIndex(ticker: TickerUiModel): Int {
+    return this.indexOfFirst { it.isin == ticker.isin }
 }
