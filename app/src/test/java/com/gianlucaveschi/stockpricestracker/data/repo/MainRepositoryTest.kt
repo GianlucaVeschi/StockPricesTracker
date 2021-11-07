@@ -9,7 +9,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Test
 
-class MainRepositoryImplTest : BaseJunitTest<MainRepository>() {
+class MainRepositoryTest : BaseJunitTest<MainRepository>() {
 
     private val webSocket: TradeRepublicWebSocket = mockk(relaxed = true)
 
