@@ -10,13 +10,12 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import java.math.BigDecimal
 import kotlin.test.assertEquals
 
 class ObserveTickerUpdatesUseCaseTest : BaseJunitTest<ObserveTickerUpdatesUseCase>() {
 
     private val mainRepository: MainRepository = mockk(relaxed = true)
-    private val tickerUiModel = TickerUiModel(appleTickerUiModel.name, appleTickerUiModel.isin, BigDecimal.ONE)
+    private val tickerUiModel = TickerUiModel(appleTickerUiModel.name, appleTickerUiModel.isin, 1.00)
 
     override fun initSelf(): ObserveTickerUpdatesUseCase {
         return ObserveTickerUpdatesUseCase(mainRepository)

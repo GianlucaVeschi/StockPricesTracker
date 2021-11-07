@@ -1,12 +1,11 @@
 package com.gianlucaveschi.stockpricestracker.domain.entities.ui
 
-import com.gianlucaveschi.stockpricestracker.domain.entities.util.formatAmountWithCurrency
-import java.math.BigDecimal
+import com.gianlucaveschi.stockpricestracker.domain.entities.util.shorten
 
 data class TickerUiModel(
     val name: String,
     val isin: String,
-    val price: BigDecimal? = null
+    val price: Double? = null
 ) {
-    fun getFormattedPrice() = price?.formatAmountWithCurrency() ?: "..."
+    fun getFormattedPrice() : String = price?.shorten(2) ?: "0.00"
 }

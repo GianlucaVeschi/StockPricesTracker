@@ -15,7 +15,7 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: MainFragmentBinding
     private val mainViewModel: MainViewModel by viewModels()
-    private val stockPricesAdapter by lazy { StockPricesAdapter(mainViewModel.tickersListStateFlow.value) }
+    private val stockPricesAdapter by lazy { TickerAdapter(mainViewModel.tickersListStateFlow.value) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

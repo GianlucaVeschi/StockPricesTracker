@@ -2,11 +2,10 @@ package com.gianlucaveschi.stockpricestracker.data.mapper
 
 import com.gianlucaveschi.stockpricestracker.Shared.appleTickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.entities.api.TickerApiModel
-import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.entities.api.TickerSubscription
 import com.gianlucaveschi.stockpricestracker.domain.entities.api.TickerUnsubscription
+import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
 import org.junit.Test
-import java.math.BigDecimal
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
@@ -14,21 +13,21 @@ class MapperTest {
 
     private val tickerApiModel = TickerApiModel(
         APPLE_ISIN,
-        BigDecimal(123),
-        BigDecimal(345),
-        BigDecimal(678)
+        1.00,
+        2.00,
+        3.00
     )
 
     @Test
     fun `should map TickerApiModel to TickerUiModel`() {
-        val expected = TickerUiModel(appleTickerUiModel.name, appleTickerUiModel.isin, BigDecimal(123))
+        val expected = TickerUiModel(appleTickerUiModel.name, appleTickerUiModel.isin, 1.00)
         val result = tickerApiModel.mapToUiModel()
         assertEquals(expected,result)
     }
 
     @Test
     fun `should fail to map TickerApiModel to TickerUiModel`() {
-        val expected = TickerUiModel(appleTickerUiModel.name, appleTickerUiModel.isin, BigDecimal(234))
+        val expected = TickerUiModel(appleTickerUiModel.name, appleTickerUiModel.isin, 2.00)
         val result = tickerApiModel.mapToUiModel()
         assertNotEquals(expected,result)
     }
