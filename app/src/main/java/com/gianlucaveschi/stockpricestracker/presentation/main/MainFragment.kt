@@ -41,8 +41,8 @@ class MainFragment : Fragment() {
     }
 
     private fun initBinding() {
-        binding.stockPricesRecView.adapter = stockPricesAdapter
-        binding.stockPricesRecView.layoutManager = LinearLayoutManager(view?.context)
+        binding.tickersListRecView.adapter = stockPricesAdapter
+        binding.tickersListRecView.layoutManager = LinearLayoutManager(view?.context)
         binding.lifecycleOwner = this
         binding.viewModel = mainViewModel
     }
