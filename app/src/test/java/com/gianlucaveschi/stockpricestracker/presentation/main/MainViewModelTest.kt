@@ -1,22 +1,14 @@
 package com.gianlucaveschi.stockpricestracker.presentation.main
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.gianlucaveschi.stockpricestracker.BaseJunitTest
 import com.gianlucaveschi.stockpricestracker.MainCoroutineRule
-import com.gianlucaveschi.stockpricestracker.Shared.appleTickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.entities.util.getHardcodedTickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.interactors.ObserveTickerUpdatesUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.SubscribeToTickerUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.UnsubscribeFromTickerUseCase
-import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
-import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
