@@ -10,9 +10,7 @@ import com.gianlucaveschi.stockpricestracker.domain.interactors.SubscribeToTicke
 import com.gianlucaveschi.stockpricestracker.domain.interactors.UnsubscribeFromTickerUseCase
 import com.gianlucaveschi.stockpricestracker.presentation.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,12 +37,10 @@ class MainViewModel @Inject constructor(
     }
 
     fun observeTickersUpdates() {
-        viewModelScope.launch {
-            observeTickerUpdatesUseCase().collect { tickerUiModel ->
-                Timber.d("Collecting UiModel $tickerUiModel")
-                updateTickerInTheList(tickerUiModel)
-            }
-        }
+        observeTickerUpdatesUseCase().onEach { tickerUiModel ->
+            Timber.d("Collecting UiModel $tickerUiModel")
+            updateTickerInTheList(tickerUiModel)
+        }.launchIn(viewModelScope)
     }
 
     private fun updateTickerInTheList(ticker: TickerUiModel) {
