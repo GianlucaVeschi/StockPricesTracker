@@ -3,7 +3,7 @@ package com.gianlucaveschi.stockpricestracker.presentation.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.gianlucaveschi.stockpricestracker.databinding.ItemViewStockPriceBinding
+import com.gianlucaveschi.stockpricestracker.databinding.ItemViewTickerBinding
 import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
 
 class TickerAdapter(
@@ -12,7 +12,7 @@ class TickerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
         return TickerViewHolder(
-            ItemViewStockPriceBinding.inflate(
+            ItemViewTickerBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -29,7 +29,7 @@ class TickerAdapter(
     private fun getItem(position: Int) = tickersList[position]
 
     inner class TickerViewHolder(
-        private val binding: ItemViewStockPriceBinding
+        private val binding: ItemViewTickerBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(tickerUiModel: TickerUiModel) {
             binding.apply {
