@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.gianlucaveschi.stockpricestracker.R
 import com.gianlucaveschi.stockpricestracker.databinding.MainFragmentBinding
-import com.gianlucaveschi.stockpricestracker.domain.entities.util.getHardcodedTickerUiModel
-import com.gianlucaveschi.stockpricestracker.presentation.util.setup
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import kotlinx.coroutines.flow.collect
@@ -40,7 +42,7 @@ class MainFragment : Fragment() {
 
     private fun initBinding() {
         binding.stockPricesRecView.adapter = stockPricesAdapter
-        binding.stockPricesRecView.setup()
+        binding.stockPricesRecView.layoutManager = LinearLayoutManager(view?.context)
         binding.lifecycleOwner = this
         binding.viewModel = mainViewModel
     }
