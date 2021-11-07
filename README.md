@@ -19,8 +19,8 @@ TradeRepublic Coding Challenge
 - Inject Service in the repository
 
 - Test ViewModels
-- Test UseCases
-- Test Repositories
-- Test Mappers
+- ~~Test UseCases~~
+- ~~Test Repositories~~
+- ~~Test Mappers~~
 
 - Delete all unnecessary logs.

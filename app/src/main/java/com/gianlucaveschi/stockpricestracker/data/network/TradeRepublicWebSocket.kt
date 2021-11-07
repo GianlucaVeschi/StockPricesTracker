@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface TradeRepublicWebSocket {
     fun observeTickerUpdates(): Flow<TickerApiModel>
-    fun startTickerSubscription(tickerSubscription: TickerSubscription)
-    fun stopTickerSubscription(tickerUnsubscription: TickerUnsubscription)
+    fun subscribeToTicker(tickerSubscription: TickerSubscription)
+    fun unsubscribeFromTicker(tickerUnsubscription: TickerUnsubscription)
 }

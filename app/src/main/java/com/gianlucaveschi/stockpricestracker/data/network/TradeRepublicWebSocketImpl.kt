@@ -50,11 +50,11 @@ class TradeRepublicWebSocketImpl(
 
     override fun observeTickerUpdates(): Flow<TickerApiModel> = tickerUpdatesFlow
 
-    override fun startTickerSubscription(tickerSubscription: TickerSubscription) {
+    override fun subscribeToTicker(tickerSubscription: TickerSubscription) {
         webSocket.send(Json.encodeToString(tickerSubscription))
     }
 
-    override fun stopTickerSubscription(tickerUnsubscription: TickerUnsubscription) {
+    override fun unsubscribeFromTicker(tickerUnsubscription: TickerUnsubscription) {
         webSocket.send(Json.encodeToString(tickerUnsubscription))
     }
 

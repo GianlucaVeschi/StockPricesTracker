@@ -24,7 +24,7 @@ class ObserveTickerUpdatesUseCaseTest : BaseJunitTest<ObserveTickerUpdatesUseCas
     @Test
     fun `should return a TickerUiModel`() = runBlocking {
 
-        coEvery { mainRepository.initTickerObservations() } returns flowOf(tickerUiModel)
+        coEvery { mainRepository.observeTicker() } returns flowOf(tickerUiModel)
 
         val result = tested().first()
 

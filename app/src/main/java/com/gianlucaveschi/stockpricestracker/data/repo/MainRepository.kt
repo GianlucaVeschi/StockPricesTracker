@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
 
-    fun initTickerObservations() : Flow<TickerUiModel>
+    fun observeTicker() : Flow<TickerUiModel>
     fun subscribeToTicker(tickerUiModel: TickerUiModel)
     fun unsubscribeFromTicker(tickerUiModel: TickerUiModel)
 }

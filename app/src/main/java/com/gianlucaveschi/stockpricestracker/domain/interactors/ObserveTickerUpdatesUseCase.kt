@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 class ObserveTickerUpdatesUseCase(
     private val mainRepository: MainRepository
 ) {
-    operator fun invoke() : Flow<TickerUiModel> = mainRepository.initTickerObservations()
+    operator fun invoke() : Flow<TickerUiModel> = mainRepository.observeTicker()
 }
