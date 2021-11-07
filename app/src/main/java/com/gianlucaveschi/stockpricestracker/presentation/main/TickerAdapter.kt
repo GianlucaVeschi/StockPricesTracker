@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gianlucaveschi.stockpricestracker.databinding.ItemViewStockPriceBinding
 import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
 
-class StockPricesAdapter(
+class TickerAdapter(
     private val tickersList: List<TickerUiModel>
-) : RecyclerView.Adapter<StockPricesAdapter.TickerViewHolder>() {
+) : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
         return TickerViewHolder(
