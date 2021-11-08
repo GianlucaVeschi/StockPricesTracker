@@ -25,6 +25,11 @@ class TradeRepublicWebSocketImpl(
     //Persistent bi-directional communication channel between a client (Android) and a BE service
     private lateinit var webSocket: WebSocket
 
+    /**
+     * callbackFlow converts a multi-shot callback into a flow
+     *
+     * https://elizarov.medium.com/callbacks-and-kotlin-flows-2b53aa2525cf
+     * */
     private val tickerUpdatesFlow: Flow<TickerApiModel> = callbackFlow {
         val webSocketListener = object : WebSocketListener() {
 

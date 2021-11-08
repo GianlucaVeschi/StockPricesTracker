@@ -3,7 +3,7 @@ package com.gianlucaveschi.stockpricestracker.domain.entities.util
 import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
 
 
-fun getHardcodedTickerUiModel(): List<TickerUiModel> = listOf(
+fun getHardcodedTickerUiModel(): MutableList<TickerUiModel> = mutableListOf(
     TickerUiModel("Apple Inc.", "US0378331005", null),
     TickerUiModel("Microsoft Corp.", "US5949181045", null),
     TickerUiModel("Invesco Ltd.", "BMG491BT1088", null),

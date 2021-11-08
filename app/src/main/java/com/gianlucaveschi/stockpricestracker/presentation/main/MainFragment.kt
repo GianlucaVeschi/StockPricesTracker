@@ -5,18 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gianlucaveschi.stockpricestracker.R
 import com.gianlucaveschi.stockpricestracker.databinding.MainFragmentBinding
+import com.gianlucaveschi.stockpricestracker.domain.entities.util.getHardcodedTickerUiModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBinding()
-        observeViewModelCalls()
+        collectTickerUpdates()
     }
 
     private fun initBinding() {
@@ -47,22 +47,14 @@ class MainFragment : Fragment() {
         binding.viewModel = mainViewModel
     }
 
-    private fun observeViewModelCalls() {
-        mainViewModel.newDataAvailable.observe(viewLifecycleOwner, ::onNewDataAvailable)
-    }
-
-    //Fix Me or Delete me, why is data only collected once at the beginning?
-    private fun collectData(){
-        lifecycleScope.launchWhenStarted {
-            mainViewModel.tickersListStateFlow
+    private fun collectTickerUpdates(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            mainViewModel.tickerStateFlow
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED) //Avoid collecting flows when UI is in the background
-                .collect {
+                .onEach {
                     Timber.d(" I FINALLY COLLECT $it")
-                }
+                    stockPricesAdapter.updateSpecificTicker(it)
+                }.launchIn(lifecycleScope)
         }
-    }
-
-    private fun onNewDataAvailable(@Suppress("UNUSED_PARAMETER") unit: Unit) {
-        stockPricesAdapter.setTickersList(mainViewModel.tickersListStateFlow.value)
     }
 }
