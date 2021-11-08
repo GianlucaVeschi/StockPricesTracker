@@ -1,7 +1,23 @@
 # StockPricesTracker
-TradeRepublic Coding Challenge
+Hello dear reviewer at Trade Republic! This is my solution for your coding challenge. Here below you can find a few informations about the project such as the libraries I have used and the mental work flow I used while working on this project.
+
+See you soon ;)
+
+# Tech Stack
+- Kotlin
+- Flow & Coroutines
+- Recycler View
+- Constraint Layout
+- Kotlinx Serizalization
+- Moshi (Not used in main branch)
+- Scarlet (Not used in main branch)
+- OkHttp
+- Mockk
+- Dagger Hilt
+- Timber
 
 # ToDos & Workflow
+## Completed
 - ~~Add Data Binding~~
 - ~~Add Navigation & safeArgs~~
 - ~~Add XML files to res folder~~
@@ -11,21 +27,28 @@ TradeRepublic Coding Challenge
 - ~~Display Hardcoded data from the VM~~
 - ~~Create mock UseCases layer~~
 - ~~Inject UseCases in the VM~~
-
-- ~~Create Dummy Repository layer~~
+- ~~Create Repository layer~~
 - ~~Inject Repository in the UseCases~~
-  
-- Create Scarlet Service (See Scarlet ad-hoc branch)
-- Inject Service in the repository
-
-- Test ViewModels
+- ~~Test ViewModels~~
 - ~~Test UseCases~~
 - ~~Test Repositories~~
 - ~~Test Mappers~~
-
+- ~~Test ViewModels~~
+- ~~Test UseCases~~
+- ~~Test Repositories~~
+- ~~Test Mappers~~
+- ~~Create Scarlet Service (See Scarlet ad-hoc branch)~~ Values can be collected in the VM but they do not propagate to the UI. Also unsubscribtion doesn't work.
+- ~~Inject Service in the repository~~
 - Delete all unnecessary logs.
 
+<strike>strike</strike>
+## Not yet
+- Modularize project
+
 # Resources & Credits
+
+## Flows
+https://manuelvivo.dev/coroutines-addrepeatingjob
 
 ## Clean Architecture
 - https://medium.com/swlh/clean-architecture-in-android-a-beginner-approach-be0ce00d806b
