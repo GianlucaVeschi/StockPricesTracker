@@ -3,13 +3,18 @@ package com.gianlucaveschi.stockpricestracker.presentation.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gianlucaveschi.stockpricestracker.data.network.scarlet.TradeRepublicService
+import com.gianlucaveschi.stockpricestracker.domain.entities.scarlet.ScarletTickerSubscription
 import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.entities.util.getHardcodedTickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.interactors.ObserveTickerUpdatesUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.SubscribeToTickerUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.UnsubscribeFromTickerUseCase
 import com.gianlucaveschi.stockpricestracker.presentation.util.SingleLiveEvent
+import com.tinder.scarlet.WebSocket
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -19,7 +24,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val observeTickerUpdatesUseCase: ObserveTickerUpdatesUseCase,
     private val subscribeToTickerUseCase: SubscribeToTickerUseCase,
-    private val unsubscribeFromTickerUseCase: UnsubscribeFromTickerUseCase
+    private val unsubscribeFromTickerUseCase: UnsubscribeFromTickerUseCase,
+    private val service: TradeRepublicService
 ) : ViewModel() {
 
     //todo : Change
@@ -32,8 +38,23 @@ class MainViewModel @Inject constructor(
     val tickersListStateFlow: StateFlow<List<TickerUiModel>> = _tickersListStateFlow
 
     init {
-        observeTickersUpdates()
-        subscribeToAllTickers()
+        getHardcodedTickerUiModel().forEach {
+            service.observeOnConnectionOpenedEvent()
+                .flowOn(Dispatchers.IO)
+                .onEach { event ->
+                    if (event is WebSocket.Event.OnConnectionOpened<*>) {
+                        service.sendSubscribe(
+                            ScarletTickerSubscription(it.isin)
+                        )
+                    }
+                }.launchIn(viewModelScope)
+
+            service.observeTicker()
+                .flowOn(Dispatchers.IO)
+                .onEach { observedTicker ->
+                    Timber.d("The price for ${observedTicker.isin} is ${observedTicker.price}")
+                }.launchIn(viewModelScope)
+        }
     }
 
     fun observeTickersUpdates() {

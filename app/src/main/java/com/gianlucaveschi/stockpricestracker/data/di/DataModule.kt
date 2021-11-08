@@ -108,7 +108,7 @@ class ScarletModule {
         moshi: Moshi
     ): Scarlet {
         return Scarlet.Builder()
-            .webSocketFactory(client.newWebSocketFactory(SyncStateContract.Constants.TRADE_REPUBLIC_SOCKET_URL))
+            .webSocketFactory(client.newWebSocketFactory(TRADE_REPUBLIC_SOCKET_URL))
             .addMessageAdapterFactory(MoshiMessageAdapter.Factory(moshi))
             .addStreamAdapterFactory(FlowStreamAdapter.Factory())
             .lifecycle(AndroidLifecycle.ofApplicationForeground(application))
@@ -120,5 +120,9 @@ class ScarletModule {
         scarlet: Scarlet
     ): TradeRepublicService {
         return scarlet.create()
+    }
+
+    companion object {
+        const val TRADE_REPUBLIC_SOCKET_URL = "ws://159.89.15.214:8080/"
     }
 }

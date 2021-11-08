@@ -1,9 +1,11 @@
 package com.gianlucaveschi.stockpricestracker.domain.entities.scarlet
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class ScarletTickerUnsubscription(
-  @SerialName("unsubscribe") val isin: String
+  @Json(name = "unsubscribe") val isin: String
 )
