@@ -37,6 +37,7 @@ class TradeRepublicWebSocketTest : BaseJunitTest<TradeRepublicWebSocket>() {
     }
 
 
+    @ExperimentalSerializationApi
     @Test
     @Ignore("Fix me - websocket has not been initialized")
     fun `should subscribe to ticker`() {
@@ -45,6 +46,7 @@ class TradeRepublicWebSocketTest : BaseJunitTest<TradeRepublicWebSocket>() {
         verify(exactly = 1) { webSocket.send(Json.encodeToString(appleTickerSubscription)) }
     }
 
+    @ExperimentalSerializationApi
     @Test
     @Ignore("Fix me - websocket has not been initialized")
     fun `should unsubscribe from ticker`() {
