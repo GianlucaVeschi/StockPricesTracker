@@ -1,13 +1,19 @@
 package com.gianlucaveschi.stockpricestracker.data.di
 
 import android.content.Context
+import android.provider.SyncStateContract
 import com.gianlucaveschi.stockpricestracker.BuildConfig
 import com.gianlucaveschi.stockpricestracker.StockPricesTrackerApplication
 import com.gianlucaveschi.stockpricestracker.data.network.TradeRepublicWebSocket
 import com.gianlucaveschi.stockpricestracker.data.network.TradeRepublicWebSocketImpl
+import com.gianlucaveschi.stockpricestracker.data.network.scarlet.TradeRepublicService
 import com.gianlucaveschi.stockpricestracker.data.repo.MainRepository
 import com.gianlucaveschi.stockpricestracker.data.repo.MainRepositoryImpl
 import com.squareup.moshi.Moshi
+import com.tinder.scarlet.Scarlet
+import com.tinder.scarlet.lifecycle.android.AndroidLifecycle
+import com.tinder.scarlet.messageadapter.moshi.MoshiMessageAdapter
+import com.tinder.scarlet.websocket.okhttp.newWebSocketFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -87,5 +93,32 @@ class NetworkModule {
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
             .build()
+    }
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+class ScarletModule {
+
+    @ExperimentalCoroutinesApi
+    @Provides
+    fun provideScarlet(
+        application: StockPricesTrackerApplication,
+        client: OkHttpClient,
+        moshi: Moshi
+    ): Scarlet {
+        return Scarlet.Builder()
+            .webSocketFactory(client.newWebSocketFactory(SyncStateContract.Constants.TRADE_REPUBLIC_SOCKET_URL))
+            .addMessageAdapterFactory(MoshiMessageAdapter.Factory(moshi))
+            .addStreamAdapterFactory(FlowStreamAdapter.Factory())
+            .lifecycle(AndroidLifecycle.ofApplicationForeground(application))
+            .build()
+    }
+
+    @Provides
+    fun provideTradeRepublicService(
+        scarlet: Scarlet
+    ): TradeRepublicService {
+        return scarlet.create()
     }
 }

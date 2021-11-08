@@ -1,5 +1,6 @@
 package com.gianlucaveschi.stockpricestracker.data.network.scarlet
 
+import com.gianlucaveschi.stockpricestracker.domain.entities.scarlet.ScarletTickerApiModel
 import com.gianlucaveschi.stockpricestracker.domain.entities.scarlet.ScarletTickerSubscription
 import com.gianlucaveschi.stockpricestracker.domain.entities.scarlet.ScarletTickerUnsubscription
 import com.tinder.scarlet.WebSocket
