@@ -3,6 +3,7 @@ package com.gianlucaveschi.stockpricestracker.presentation.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gianlucaveschi.stockpricestracker.data.mapper.mapToUiModel
 import com.gianlucaveschi.stockpricestracker.data.network.scarlet.TradeRepublicService
 import com.gianlucaveschi.stockpricestracker.domain.entities.scarlet.ScarletTickerSubscription
 import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
@@ -38,6 +39,10 @@ class MainViewModel @Inject constructor(
     val tickersListStateFlow: StateFlow<List<TickerUiModel>> = _tickersListStateFlow
 
     init {
+        observeAllTickersThroughScarlet()
+    }
+
+    private fun observeAllTickersThroughScarlet() {
         getHardcodedTickerUiModel().forEach {
             service.observeOnConnectionOpenedEvent()
                 .flowOn(Dispatchers.IO)
@@ -51,8 +56,9 @@ class MainViewModel @Inject constructor(
 
             service.observeTicker()
                 .flowOn(Dispatchers.IO)
-                .onEach { observedTicker ->
-                    Timber.d("The price for ${observedTicker.isin} is ${observedTicker.price}")
+                .onEach { scarletApiModel ->
+                    val tickerUiModel = scarletApiModel.mapToUiModel()
+                    Timber.d("The price for ${tickerUiModel.name} is ${tickerUiModel.price}")
                 }.launchIn(viewModelScope)
         }
     }
