@@ -44,9 +44,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun updateTickerInTheList(ticker: TickerUiModel) {
-        val index = _tickersListStateFlow.value.getTickerIndex(ticker)
-        _tickersListStateFlow.value[index] = ticker
-
+        _tickersListStateFlow.value.updateTicker(ticker)
         _newDataAvailable.value = Unit
     }
 
@@ -61,6 +59,11 @@ class MainViewModel @Inject constructor(
             unsubscribeFromTickerUseCase(it)
         }
     }
+}
+
+private fun MutableList<TickerUiModel>.updateTicker(ticker: TickerUiModel) {
+    val indexOfTicket = this.getTickerIndex(ticker)
+    this[indexOfTicket] = ticker
 }
 
 private fun MutableList<TickerUiModel>.getTickerIndex(ticker: TickerUiModel): Int {
