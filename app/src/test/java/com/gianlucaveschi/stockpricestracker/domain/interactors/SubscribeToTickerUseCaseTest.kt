@@ -1,7 +1,7 @@
 package com.gianlucaveschi.stockpricestracker.domain.interactors
 
 import com.gianlucaveschi.stockpricestracker.BaseJunitTest
-import com.gianlucaveschi.stockpricestracker.Shared.appleTickerUiModel
+import com.gianlucaveschi.stockpricestracker.testutils.Shared.appleTickerUiModel
 import com.gianlucaveschi.stockpricestracker.data.repo.MainRepository
 import io.mockk.mockk
 import io.mockk.verify
@@ -16,7 +16,7 @@ class SubscribeToTickerUseCaseTest : BaseJunitTest<SubscribeToTickerUseCase>() {
 
     @Test
     fun `should subscribe to the given Ticker`() = runBlocking {
-        tested(appleTickerUiModel)
+        systemUnderTest(appleTickerUiModel)
 
         verify(exactly = 1) { mainRepository.subscribeToTicker(appleTickerUiModel) }
     }

@@ -1,7 +1,7 @@
 package com.gianlucaveschi.stockpricestracker.presentation.main
 
 import com.gianlucaveschi.stockpricestracker.BaseJunitTest
-import com.gianlucaveschi.stockpricestracker.MainCoroutineRule
+import com.gianlucaveschi.stockpricestracker.testutils.MainCoroutineRule
 import com.gianlucaveschi.stockpricestracker.domain.entities.util.getHardcodedTickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.interactors.ObserveTickerUpdatesUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.SubscribeToTickerUseCase
@@ -30,7 +30,7 @@ class MainViewModelTest : BaseJunitTest<MainViewModel>() {
 
     @Test
     fun `should subscribe to all Ticker`() {
-        tested.observeTickersUpdates()
+        systemUnderTest.observeTickersUpdates()
 
         getHardcodedTickerUiModel().forEach {
             coVerify(exactly = 1) {
@@ -41,7 +41,7 @@ class MainViewModelTest : BaseJunitTest<MainViewModel>() {
 
     @Test
     fun `should unsubscribe from all tickers`() {
-        tested.unsubscribeFromAllTickers()
+        systemUnderTest.unsubscribeFromAllTickers()
 
         getHardcodedTickerUiModel().forEach {
             coVerify(exactly = 1) {

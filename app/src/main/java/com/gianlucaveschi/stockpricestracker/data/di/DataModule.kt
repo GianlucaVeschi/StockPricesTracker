@@ -15,6 +15,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
@@ -45,15 +46,22 @@ class WebSocketListenerModule {
             .build()
     }
 
+    @Provides
+    fun provideJsonEncoder() : Json {
+        return Json { ignoreUnknownKeys = true }
+    }
+
     @ExperimentalCoroutinesApi
     @ExperimentalSerializationApi
     @Provides
     fun provideWebSocketListener(
         okHttpClient: OkHttpClient,
-        openConnectionRequest: Request
+        openConnectionRequest: Request,
+        jsonEncoder : Json
     ) : TradeRepublicWebSocket = TradeRepublicWebSocketImpl(
         okHttpClient,
-        openConnectionRequest
+        openConnectionRequest,
+        jsonEncoder
     )
 
     companion object {

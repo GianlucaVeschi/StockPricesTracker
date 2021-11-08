@@ -1,6 +1,6 @@
 package com.gianlucaveschi.stockpricestracker.data.mapper
 
-import com.gianlucaveschi.stockpricestracker.Shared.appleTickerUiModel
+import com.gianlucaveschi.stockpricestracker.testutils.Shared.appleTickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.entities.api.TickerApiModel
 import com.gianlucaveschi.stockpricestracker.domain.entities.api.TickerSubscription
 import com.gianlucaveschi.stockpricestracker.domain.entities.api.TickerUnsubscription

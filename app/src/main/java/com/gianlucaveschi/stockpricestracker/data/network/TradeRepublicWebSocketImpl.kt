@@ -18,14 +18,14 @@ import timber.log.Timber
 @ExperimentalCoroutinesApi
 class TradeRepublicWebSocketImpl(
     private val client: OkHttpClient,
-    private val openConnectionRequest: Request
+    private val openConnectionRequest: Request,
+    private val jsonEncoder : Json
 ) : TradeRepublicWebSocket {
 
     //Persistent bi-directional communication channel between a client (Android) and a BE service
     private lateinit var webSocket: WebSocket
 
     private val tickerUpdatesFlow: Flow<TickerApiModel> = callbackFlow {
-        val json = Json { ignoreUnknownKeys = true }
         val webSocketListener = object : WebSocketListener() {
 
             override fun onOpen(webSocket: WebSocket, response: Response) {
@@ -34,7 +34,7 @@ class TradeRepublicWebSocketImpl(
 
             override fun onMessage(webSocket: WebSocket, text: String) {
                 Timber.d("onMessage $text")
-                trySend(json.decodeFromString(text))
+                trySend(jsonEncoder.decodeFromString(text))
             }
 
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
@@ -59,11 +59,11 @@ class TradeRepublicWebSocketImpl(
     override fun observeTickerUpdates(): Flow<TickerApiModel> = tickerUpdatesFlow
 
     override fun subscribeToTicker(tickerSubscription: TickerSubscription) {
-        webSocket.send(Json.encodeToString(tickerSubscription))
+        webSocket.send(jsonEncoder.encodeToString(tickerSubscription))
     }
 
     override fun unsubscribeFromTicker(tickerUnsubscription: TickerUnsubscription) {
-        webSocket.send(Json.encodeToString(tickerUnsubscription))
+        webSocket.send(jsonEncoder.encodeToString(tickerUnsubscription))
     }
 
     companion object {

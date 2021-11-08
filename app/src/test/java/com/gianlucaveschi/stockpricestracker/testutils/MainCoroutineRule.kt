@@ -1,4 +1,4 @@
-package com.gianlucaveschi.stockpricestracker
+package com.gianlucaveschi.stockpricestracker.testutils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
