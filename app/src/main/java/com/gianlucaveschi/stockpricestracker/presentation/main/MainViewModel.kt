@@ -1,6 +1,5 @@
 package com.gianlucaveschi.stockpricestracker.presentation.main
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
@@ -8,10 +7,8 @@ import com.gianlucaveschi.stockpricestracker.domain.entities.util.getHardcodedTi
 import com.gianlucaveschi.stockpricestracker.domain.interactors.ObserveTickerUpdatesUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.SubscribeToTickerUseCase
 import com.gianlucaveschi.stockpricestracker.domain.interactors.UnsubscribeFromTickerUseCase
-import com.gianlucaveschi.stockpricestracker.presentation.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -22,14 +19,10 @@ class MainViewModel @Inject constructor(
     private val unsubscribeFromTickerUseCase: UnsubscribeFromTickerUseCase
 ) : ViewModel() {
 
-    //todo : Change
-    private val _newDataAvailable = SingleLiveEvent<Unit>()
-    val newDataAvailable: LiveData<Unit> = _newDataAvailable
+    private val tickersList: MutableList<TickerUiModel> = getHardcodedTickerUiModel()
 
-    private val _tickersListStateFlow = MutableStateFlow(mutableListOf<TickerUiModel>().apply {
-        addAll(getHardcodedTickerUiModel())
-    })
-    val tickersListStateFlow: StateFlow<List<TickerUiModel>> = _tickersListStateFlow
+    private val _tickerStateFlow = MutableStateFlow(TickerUiModel("Apple Inc.", "US0378331005"))
+    val tickerStateFlow: StateFlow<TickerUiModel> = _tickerStateFlow
 
     init {
         observeTickersUpdates()
@@ -38,29 +31,21 @@ class MainViewModel @Inject constructor(
 
     fun observeTickersUpdates() {
         observeTickerUpdatesUseCase().onEach { ticker ->
-            _tickersListStateFlow.value.updateTicker(ticker)
-            _newDataAvailable.value = Unit
+            _tickerStateFlow.value = ticker
+        }.catch { error ->
+            Timber.d("Collecting failed with ${error.message}")
         }.launchIn(viewModelScope)
     }
 
     fun subscribeToAllTickers() {
-        _tickersListStateFlow.value.forEach {
+        tickersList.forEach {
             subscribeToTickerUseCase(it)
         }
     }
 
     fun unsubscribeFromAllTickers() {
-        _tickersListStateFlow.value.forEach {
+        tickersList.forEach {
             unsubscribeFromTickerUseCase(it)
         }
     }
-}
-
-private fun MutableList<TickerUiModel>.updateTicker(ticker: TickerUiModel) {
-    val indexOfTicket = this.getTickerIndex(ticker)
-    this[indexOfTicket] = ticker
-}
-
-private fun MutableList<TickerUiModel>.getTickerIndex(ticker: TickerUiModel): Int {
-    return this.indexOfFirst { it.isin == ticker.isin }
 }

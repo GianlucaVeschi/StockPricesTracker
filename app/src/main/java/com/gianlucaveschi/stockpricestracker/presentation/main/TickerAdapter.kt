@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gianlucaveschi.stockpricestracker.databinding.ItemViewTickerBinding
 import com.gianlucaveschi.stockpricestracker.domain.entities.ui.TickerUiModel
 import com.gianlucaveschi.stockpricestracker.domain.entities.util.getHardcodedTickerUiModel
+import timber.log.Timber
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
-    private var tickersList: List<TickerUiModel> = listOf()
+    private var tickersList: MutableList<TickerUiModel> = getHardcodedTickerUiModel()
 
-    fun setTickersList(tickersList : List<TickerUiModel>) {
-        this.tickersList = tickersList
-        notifyDataSetChanged()
+    fun updateSpecificTicker(tickerUiModel: TickerUiModel) {
+        val indexOfTicket = tickersList.updateTicker(tickerUiModel)
+        notifyItemChanged(indexOfTicket)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
@@ -44,4 +45,14 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
             }
         }
     }
+}
+
+private fun MutableList<TickerUiModel>.updateTicker(ticker: TickerUiModel) : Int {
+    val indexOfTicket = this.getTickerIndex(ticker)
+    this[indexOfTicket] = ticker
+    return indexOfTicket
+}
+
+private fun MutableList<TickerUiModel>.getTickerIndex(ticker: TickerUiModel): Int {
+    return this.indexOfFirst { it.isin == ticker.isin }
 }
