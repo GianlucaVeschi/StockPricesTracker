@@ -2,7 +2,7 @@ package com.gianlucaveschi.stockpricestracker.data.di
 
 import android.content.Context
 import com.gianlucaveschi.stockpricestracker.BuildConfig
-import com.gianlucaveschi.stockpricestracker.StockPricesTrackerApplication
+import com.gianlucaveschi.stockpricestracker.TickersTrackerApplication
 import com.gianlucaveschi.stockpricestracker.data.network.TradeRepublicWebSocket
 import com.gianlucaveschi.stockpricestracker.data.network.TradeRepublicWebSocketImpl
 import com.gianlucaveschi.stockpricestracker.data.repo.MainRepository
@@ -68,8 +68,8 @@ class NetworkModule {
     @Provides
     fun providesApplication(
         @ApplicationContext context: Context
-    ): StockPricesTrackerApplication {
-        return context as StockPricesTrackerApplication
+    ): TickersTrackerApplication {
+        return context as TickersTrackerApplication
     }
 
     @Provides
