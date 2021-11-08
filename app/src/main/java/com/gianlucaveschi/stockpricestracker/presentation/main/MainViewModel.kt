@@ -37,15 +37,10 @@ class MainViewModel @Inject constructor(
     }
 
     fun observeTickersUpdates() {
-        observeTickerUpdatesUseCase().onEach { tickerUiModel ->
-            Timber.d("Collecting UiModel $tickerUiModel")
-            updateTickerInTheList(tickerUiModel)
+        observeTickerUpdatesUseCase().onEach { ticker ->
+            _tickersListStateFlow.value.updateTicker(ticker)
+            _newDataAvailable.value = Unit
         }.launchIn(viewModelScope)
-    }
-
-    private fun updateTickerInTheList(ticker: TickerUiModel) {
-        _tickersListStateFlow.value.updateTicker(ticker)
-        _newDataAvailable.value = Unit
     }
 
     fun subscribeToAllTickers() {
