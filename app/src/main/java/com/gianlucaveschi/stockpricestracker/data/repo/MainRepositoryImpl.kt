@@ -12,7 +12,7 @@ class MainRepositoryImpl(
     private val tradeRepublicWebSocket: TradeRepublicWebSocket
 ) : MainRepository {
 
-    /** Observe Last updated ticker and converts it to Ui Model*/
+    /** Observe Last updated ticker and convert it to Ui Model */
     override fun observeTicker(): Flow<TickerUiModel> {
         return tradeRepublicWebSocket.observeTickerUpdates().map { it.mapToUiModel() }
     }

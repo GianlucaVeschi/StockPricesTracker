@@ -18,6 +18,3 @@ fun getHardcodedTickerUiModel(): MutableList<TickerUiModel> = mutableListOf(
     TickerUiModel("Samsung Electronic & Co.", "KR7005930003"),
     TickerUiModel("Eni S.P.A.", "IT0003132476", null)
 )
-
-
-

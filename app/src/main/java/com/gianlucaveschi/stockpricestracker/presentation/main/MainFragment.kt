@@ -52,7 +52,6 @@ class MainFragment : Fragment() {
             mainViewModel.tickerStateFlow
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED) //Avoid collecting flows when UI is in the background
                 .onEach {
-                    Timber.d(" I FINALLY COLLECT $it")
                     stockPricesAdapter.updateSpecificTicker(it)
                 }.launchIn(lifecycleScope)
         }
