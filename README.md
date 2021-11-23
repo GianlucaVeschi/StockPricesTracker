@@ -2,6 +2,11 @@
 
 This project showcases an app which displays a bunch of hardcoded stock tickers being updated automatically through a web socket.
 
+![image-1](https://user-images.githubusercontent.com/19254758/143004914-92b1489e-4e85-492c-ad35-2a6e30822017.png)
+![image-2](https://user-images.githubusercontent.com/19254758/143004753-cff6b68f-cb26-45c3-a57f-3656b8a3c577.png)
+
+
+
 # Tech Stack
 - Kotlin
 - Flow & Coroutines
