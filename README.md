@@ -47,7 +47,7 @@ This project showcases an app which displays a bunch of hardcoded stock tickers 
 # Resources & Credits
 
 ## Flows
-https://manuelvivo.dev/coroutines-addrepeatingjob
+- https://manuelvivo.dev/coroutines-addrepeatingjob
 
 ## Clean Architecture
 - https://medium.com/swlh/clean-architecture-in-android-a-beginner-approach-be0ce00d806b
