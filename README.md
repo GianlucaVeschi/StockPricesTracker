@@ -1,7 +1,6 @@
 # StockPricesTracker
-Hello dear reviewer at Trade Republic! This is my solution for your coding challenge. Here below you can find a few informations about the project such as the libraries I have used and the mental work flow I used while working on this project.
 
-See you soon ;)
+This project showcases an app which displays a bunch of hardcoded stock tickers being updated automatically through a web socket.
 
 # Tech Stack
 - Kotlin
